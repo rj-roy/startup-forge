@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Badge from "../ui/Badge";
 import Button from "../ui/Button";
 
@@ -71,13 +72,12 @@ export default function StartupCard({ startup, onViewDetails }) {
                     <span>Needs {teamSize}</span>
                 </div>
 
-                <Button
-                    variant="primary"
+                <Link
+                    href={`/startups/${startup._id}`}
                     size="sm"
-                    onClick={() => onViewDetails(startup)}
-                >
+                    className="px-3 py-1 rounded-md text-sm font-medium bg-[#0d6efd] hover:bg-[#0d6efd]/90">
                     View Details
-                </Button>
+                </Link>
             </div>
 
             {startup.status === "pending" && (

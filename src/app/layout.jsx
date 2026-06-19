@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col bg-white-bg dark:bg-black-bg">
         <TProvider>
           <NavBar />
-          <main>
+          <main className="mt-16 lg:mt-22">
             {children}
           </main>
         </TProvider>

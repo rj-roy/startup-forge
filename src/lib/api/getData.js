@@ -4,3 +4,8 @@ export const getStartups = async () => {
   const startups = await serverFetch('/api/startups');
   return startups;
 };
+
+export const getStartupById = async (id) => {
+  const startup = await serverFetch(`/api/startups/${id}`);
+  return startup;
+};

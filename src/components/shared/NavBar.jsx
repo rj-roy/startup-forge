@@ -31,7 +31,7 @@ export default function NavBar() {
 
     const navLinks = [
         { href: '/', label: 'Home' },
-        { href: '/browse-startups', label: 'Browse Startups' },
+        { href: '/startups', label: 'Browse Startups' },
         { href: '/browse-opportunities', label: 'Browse Opportunities' },
         { href: '/pricing', label: 'Pricing' },
         { href: '/about', label: 'About' },
