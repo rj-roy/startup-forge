@@ -28,8 +28,9 @@ export default function NavBar() {
     };
 
     const navLinks = [
-        { href: '/jobs', label: 'Browse Jobs' },
-        { href: '/companies', label: 'Companies' },
+        { href: '/', label: 'Home' },
+        { href: '/browse-startups', label: 'Browse Startups' },
+        { href: '/browse-opportunities', label: 'Browse Opportunities' },
         { href: '/pricing', label: 'Pricing' },
         { href: '/about', label: 'About' },
     ];
@@ -75,7 +76,7 @@ export default function NavBar() {
                             </button>
 
                             {/* Theme Switch */}
-                            <div className="hidden sm:block">
+                            <div className="">
                                 <ThemeSwitch/>
                             </div>
 
@@ -250,7 +251,8 @@ export default function NavBar() {
                                             Get Started
                                         </Link>
                                     </>
-                                )}
+                                )
+                                }
                             </div>
                         </div>
                     </div>

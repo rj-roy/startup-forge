@@ -14,5 +14,5 @@ export async function proxy(request) {
     };
 };
 export const config = {
-    matcher: ['/signin', '/signup'],
+    matcher: ['/auth/signin', '/auth/signup'],
 };
