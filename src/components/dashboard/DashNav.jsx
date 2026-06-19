@@ -1,7 +1,7 @@
 'use client'
 import { authClient } from "@/lib/auth-client";
 import { Envelope, Gear, Magnifier, Person } from "@gravity-ui/icons";
-import { Bell, Bookmark, Briefcase, Building, CreditCard, FileText, House, LayoutDashboard, LogOut, SettingsIcon, User, Users, } from "lucide-react";
+import { Bell, Bolt, Bookmark, Briefcase, Building, ClipboardPen, CreditCard, FileText, House, LayoutDashboard, LogOut, SettingsIcon, ShoppingBasket, User, Users, } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { FaAngleLeft, FaAngleRight, } from "react-icons/fa";
@@ -17,22 +17,21 @@ const DashNav = () => {
         window.location.href = '/';
     };
 
-    const recruiterNavLinks = [
-        { icon: House, href: "/dashboard/recruiter", label: "Home" },
-        { icon: Magnifier, href: "/dashboard/recruiter/jobs", label: "Jobs" },
-        { icon: Bell, href: "/dashboard/recruiter/jobs/new", label: "Post A Job" },
-        { icon: Briefcase, href: "/dashboard/recruiter/company", label: "Company Profile" },
-        { icon: Envelope, href: "/messages", label: "Messages" },
-        { icon: Person, href: "/profile", label: "Profile" },
-        { icon: Gear, href: "/settings", label: "Settings" },
+    const founderNavLinks = [
+        { icon: House, href: "/dashboard/founder", label: "Home" },
+        { icon: ClipboardPen, href: "/dashboard/founder/my-startup", label: "My Startup" },
+        { icon: Bolt, href: "/dashboard/founder/manage-startup", label: "Manage Startup" },
+        { icon: Briefcase, href: "/dashboard/founder/add-opportunity", label: "Add Opportunity" },
+        { icon: ShoppingBasket, href: "/dashboard/founder/manage-opportunities", label: "Manage" },
+        { icon: Envelope, href: "/dashboard/founder/applications", label: "Applications" },
+        { icon: Person, href: "/dashboard/founder/profile", label: "Profile" },
     ];
-    const seekerNavLinks = [
-        { icon: House, href: "/dashboard/seeker", label: "Dashboard" },
-        { icon: Magnifier, href: "/dashboard/seeker/jobs", label: "Jobs" },
-        { icon: Bookmark, href: "/dashboard/seeker/saved-jobs", label: "Saved Jobs" },
-        { icon: FileText, href: "/dashboard/seeker/applications", label: "Applications" },
-        { icon: CreditCard, href: "/dashboard/seeker/billing", label: "Billing" },
-        { icon: Gear, href: "/settings", label: "Settings" },
+    const collaboratorNavLinks = [
+        { icon: House, href: "/dashboard/collaborator", label: "Dashboard" },
+        { icon: Magnifier, href: "/opportunities", label: "Browse Opportunities" },
+        { icon: Bookmark, href: "/dashboard/collaborator/my-applications", label: "My Applications" },
+        { icon: FileText, href: "/dashboard/collaborator/applications", label: "Applications" },
+        { icon: CreditCard, href: "/dashboard/collaborator/profile", label: "Profile" },
     ];
     const adminNavLinks = [
         { icon: House, href: "/dashboard/admin", label: "Dashboard" },
@@ -44,11 +43,11 @@ const DashNav = () => {
     ];
 
     const navLinksMap = {
-        seeker: seekerNavLinks,
-        recruiter: recruiterNavLinks,
+        founder: founderNavLinks,
+        collaborator: collaboratorNavLinks,
         admin: adminNavLinks
     };
-    const menuItems = navLinksMap[user?.role || 'seeker'];
+    const menuItems = navLinksMap[user?.role || 'founder'];
 
     return (
         <>
@@ -60,7 +59,7 @@ const DashNav = () => {
                         <FaAngleRight className="size-8 fixed top-100 bottom-100    " />
                     )}
                 </button>
-                <aside className={`fixed top-16 z-40 h-screen pb-15 w-64 bg-white-bg dark:bg-black-bg flex flex-col transition-transform duration-300 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}>
+                <aside className={`fixed top-16 z-40 h-screen pb-15 w-64 py-5 bg-white-bg dark:bg-black-bg flex flex-col transition-transform duration-300 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}>
                     {/* Header */}
                     <div className="p-6">
                         <div className="flex justify-between">
@@ -74,7 +73,11 @@ const DashNav = () => {
                             </div>
 
                             <div>
-                                <p className="text-sm font-medium">Seeker Portal</p>
+                                <p className="text-sm font-medium">
+                                    {
+                                        user?.user?.role === "founder" ? "Founder" : user?.user?.role === "collaborator" ? "Collaborator" : "Admin"
+                                    }
+                                </p>
                                 <p className="text-xs text-gray-800 dark:text-gray-400">
                                     {user?.user?.plan.split("_").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
                                 </p>
@@ -103,10 +106,6 @@ const DashNav = () => {
 
                     {/* Footer Actions */}
                     <div className="p-4 space-y-2">
-                        <button className="w-full rounded-lg bg-white px-4 py-2.5 font-medium text-black transition-colors hover:bg-gray-200">
-                            Post Resume
-                        </button>
-
                         <button onClick={handleLogout} className="flex w-full items-center gap-3 rounded-lg px-4 py-2.5 dark:text-gray-400 transition-colors hover:bg-gray-900 hover:text-white">
                             <LogOut className="size-5" />
                             <span className="font-medium">Logout</span>
