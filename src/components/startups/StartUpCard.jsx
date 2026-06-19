@@ -1,0 +1,90 @@
+import Badge from "../ui/Badge";
+import Button from "../ui/Button";
+
+const industryVariants = {
+    "EdTech": "edtech",
+    "FinTech": "fintech",
+    "CleanTech": "cleantech",
+    "HealthTech": "healthtech",
+    "AgriTech": "success",
+    "PropTech": "primary",
+    "Marketing": "warning",
+    "TravelTech": "primary",
+    "Cybersecurity": "default",
+    "ConstructionTech": "default",
+    "FoodTech": "success",
+    "Automotive": "default",
+    "HRTech": "primary",
+    "RetailTech": "warning",
+    "Creator Economy": "primary",
+    "Cloud Computing": "primary",
+    "SportsTech": "success",
+    "Artificial Intelligence": "primary",
+};
+
+const getTeamSizeText = (fundingStage) => {
+    const stages = {
+        "Pre-Seed": "1-2 Members",
+        "Seed": "2-3 Members",
+        "Series A": "4-6 Members",
+        "Series B": "6-10 Members",
+    };
+    return stages[fundingStage] || "2-3 Members";
+};
+
+export default function StartupCard({ startup, onViewDetails }) {
+    const badgeVariant = industryVariants[startup.industry] || "default";
+    const teamSize = getTeamSizeText(startup.funding_stage);
+
+    return (
+        <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow duration-200 dark:bg-gray-900 dark:border-gray-700 dark:hover:shadow-gray-800/50">
+            <div className="flex items-start justify-between mb-4">
+                <div className="flex items-start space-x-4">
+                    <img
+                        src={startup.logo}
+                        alt={startup.startup_name}
+                        className="w-12 h-12 rounded-lg object-cover border border-gray-200 dark:border-gray-700"
+                    />
+                    <div>
+                        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                            {startup.startup_name}
+                        </h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                            by {startup.founder_email.split('@')[0].replace('.', ' ')}
+                        </p>
+                    </div>
+                </div>
+                <Badge variant={badgeVariant}>
+                    {startup.industry}
+                </Badge>
+            </div>
+
+            <p className="text-gray-600 mb-4 line-clamp-2 dark:text-gray-300">
+                {startup.description}
+            </p>
+
+            <div className="flex items-center justify-between">
+                <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                    <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    <span>Needs {teamSize}</span>
+                </div>
+
+                <Button
+                    variant="primary"
+                    size="sm"
+                    onClick={() => onViewDetails(startup)}
+                >
+                    View Details
+                </Button>
+            </div>
+
+            {startup.status === "pending" && (
+                <div className="mt-3 pt-3 border-t border-gray-100 dark:border-gray-800">
+                    <Badge variant="warning">Pending Approval</Badge>
+                </div>
+            )}
+        </div>
+    );
+}

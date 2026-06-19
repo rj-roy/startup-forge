@@ -86,7 +86,7 @@ export default function SignupComponent() {
 
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-            <div className="sm:mx-auto sm:w-full sm:max-w-lg">
+            <div className="sm:mx-auto sm:w-full sm:max-w-lg pt-10">
                 <ToastContainer />
                 {/* Logo / Brand */}
                 <div className="flex justify-center items-center gap-2 mb-2">
@@ -97,7 +97,7 @@ export default function SignupComponent() {
                 <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-300">
                     Create your account to get started
                 </p>
-                <div className="bg-gray-50 flex items-center justify-center p-4 mt-2">
+                <div className="bg-gray-50 dark:bg-black-bg flex items-center justify-center p-4 mt-2">
                     <div className="w-full max-w-lg space-y-6">
                         <button onClick={handleGoogleSignIn}
                          className="cursor-pointer w-full flex items-center justify-center gap-3 px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-50 hover:border-gray-400 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
@@ -115,7 +115,7 @@ export default function SignupComponent() {
                                 <div className="w-full border-t border-gray-300"></div>
                             </div>
                             <div className="relative flex justify-center text-sm">
-                                <span className="px-4 bg-gray-50 text-gray-500 font-medium">OR EMAIL</span>
+                                <span className="px-4 bg-gray-50 dark:bg-black-bg text-gray-500 font-medium">OR EMAIL</span>
                             </div>
                         </div>
                     </div>

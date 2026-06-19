@@ -27,10 +27,10 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full flex flex-col bg-white-bg dark:bg-black-bg">
         <TProvider>
-          <div className=" mb-16 lg:mb-20">
-            <NavBar />
-          </div>
-          {children}
+          <NavBar />
+          <main>
+            {children}
+          </main>
         </TProvider>
       </body>
     </html>

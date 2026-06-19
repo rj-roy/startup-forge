@@ -44,7 +44,6 @@ export default function NavBar() {
 
     return (
         <>
-            {/* Top Navigation Bar */}
             <nav
                 className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white-bg/95 dark:bg-gray-900/80 backdrop-blur-md shadow-lg border-b border-b-white-bg/95 dark:border-gray-700`}
             >
@@ -161,13 +160,13 @@ export default function NavBar() {
                             ) : (
                                 <div className="flex items-center gap-2 lg:gap-3">
                                     <Link
-                                        href="/signin"
+                                        href="/auth/signin"
                                         className="hidden sm:block px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all duration-200"
                                     >
                                         Sign In
                                     </Link>
                                     <Link
-                                        href="/signup"
+                                        href="/auth/signup"
                                         className="px-4 py-2 text-sm font-medium text-white bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-105"
                                     >
                                         <span className="hidden sm:inline">Get Started</span>
@@ -257,8 +256,6 @@ export default function NavBar() {
                     </div>
                 )}
             </nav>
-
-            {/* Spacer for fixed header */}
             {/* <div className="h-16 lg:h-20"></div> */}
         </>
     );
