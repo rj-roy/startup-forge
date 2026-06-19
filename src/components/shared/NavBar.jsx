@@ -47,7 +47,7 @@ export default function NavBar() {
                         {/* Logo */}
                         <Link href="/" className="flex items-center shrink-0">
                             <span className="text-2xl lg:text-3xl font-bold bg-linear-to-r from-blue-600 via-blue-500 to-orange-500 bg-clip-text text-transparent">
-                                HireLoop
+                                Startup Forge
                             </span>
                         </Link>
 
