@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import TProvider from "@/components/prividers/TProvider";
+import NavBar from "@/components/shared/NavBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,6 +27,9 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full flex flex-col">
         <TProvider>
+          <div className=" mb-16 lg:mb-20">
+            <NavBar />
+          </div>
           {children}
         </TProvider>
       </body>

@@ -1,9 +1,9 @@
+import NavBar from "@/components/shared/NavBar";
+
 export default function AuthLayout({ children }) {
     return (
         <div className="h-screen">
-            <div className="pt-16 lg:pt-20">
-                {children}
-            </div>
+            {children}
         </div>
     );
 };

@@ -122,7 +122,7 @@ export default function SignupComponent() {
                 </div>
             </div>
 
-            <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-lg">
+            <div className="mt-1 sm:mx-auto sm:w-full sm:max-w-lg">
                 <div className="bg-white dark:bg-gray-800 py-8 px-4 shadow-xl shadow-gray-200/50 dark:shadow-black/50 sm:rounded-xl sm:px-10 border-gray-100 dark:border-gray-700 border">
                     <form className="space-y-6" onSubmit={handleSubmit}>
 
@@ -299,7 +299,7 @@ export default function SignupComponent() {
                         </div>
                         <div className="mt-6 text-center">
                             <Link
-                                href={`/signin${redirectTo ? `?redirect=${redirectTo}` : '/'}`}
+                                href={`/auth/signin${redirectTo ? `?redirect=${redirectTo}` : '/'}`}
                                 className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors"
                             >
                                 Sign in to your account

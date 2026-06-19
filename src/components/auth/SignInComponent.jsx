@@ -79,22 +79,22 @@ export default function SignInComponent() {
     };
 
     return (
-        <div className="min-h-screen light:bg-gray-50 dark:bg-gray-900 flex flex-col justify-center sm:px-6 lg:px-8">
+        <div className="min-h-screen light:bg-gray-50 dark:bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
                 <ToastContainer />
                 {/* Logo / Brand */}
                 <div className="flex justify-center items-center gap-2 mb-2">
                     <div className="bg-indigo-600 p-2 rounded-lg">
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        {/* <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
+                        </svg> */}
                     </div>
                     <h2 className="text-3xl font-extrabold light:text-gray-900 dark:text-white tracking-tight">Startup Forge</h2>
                 </div>
                 <p className="mt-2 text-center text-sm light:text-gray-600 dark:text-gray-300">
                     Sign in to your account to continue
                 </p>
-                <div className="bg-gray-50 flex items-center justify-center p-4 mt-2">
+                <div className="bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-4 mt-2">
                     <div className="w-full max-w-lg space-y-6">
                         <button onClick={handleGoogleSignIn}
                             className="cursor-pointer w-full flex items-center justify-center gap-3 px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-50 hover:border-gray-400 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
@@ -112,14 +112,14 @@ export default function SignInComponent() {
                                 <div className="w-full border-t border-gray-300"></div>
                             </div>
                             <div className="relative flex justify-center text-sm">
-                                <span className="px-4 bg-gray-50 text-gray-500 font-medium">OR EMAIL</span>
+                                <span className="px-4 bg-gray-50 text-gray-500 dark:bg-gray-900 font-medium">OR EMAIL</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="mt-2 sm:mx-auto sm:w-full sm:max-w-md">
+            <div className="mt-1 sm:mx-auto sm:w-full sm:max-w-md">
                 <div className="light:bg-white dark:bg-gray-800 py-8 px-4 shadow-xl light:shadow-gray-200/50 dark:shadow-black/50 sm:rounded-xl sm:px-10 light:border-gray-100 dark:border-gray-700 border">
                     <form className="space-y-6" onSubmit={handleSubmit}>
 
@@ -155,7 +155,7 @@ export default function SignInComponent() {
                                     Password
                                 </label>
                                 <div className="text-sm">
-                                    <Link href="/forgot-password" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                    <Link href="#forgot-password" className="font-medium text-indigo-600 hover:text-indigo-500">
                                         Forgot password?
                                     </Link>
                                 </div>
@@ -241,9 +241,9 @@ export default function SignInComponent() {
                                 </span>
                             </div>
                         </div>
-                        <div className="text-center">
+                        <div className="mt-6 text-center">
                             <Link
-                                href={`/signup${redirectTo ? `?redirect=${redirectTo}` : '/'}`}
+                                href={`/auth/signup${redirectTo ? `?redirect=${redirectTo}` : '/'}`}
                                 className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors"
                             >
                                 Create a new account
