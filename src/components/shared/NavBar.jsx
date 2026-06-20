@@ -235,7 +235,7 @@ export default function NavBar() {
                                 ) : (
                                     <>
                                         <Link
-                                            href="/signin"
+                                            href="/auth/signin"
                                             className="block w-full text-center px-4 py-3 text-base font-medium text-blue-600 dark:text-blue-400 border-2 border-blue-600 dark:border-blue-400 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all"
                                             onClick={() => setIsMobileMenuOpen(false)}
                                         >

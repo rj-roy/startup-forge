@@ -20,11 +20,18 @@ export async function proxy(request) {
     };
 
     if (pathname.startsWith("/dashboard/admin") && session?.user?.role !== "admin") {
-        return NextResponse.redirect(new URL("/", request.url));
+        return NextResponse.redirect(new URL("/unauthorized", request.url));
+    };
+
+    if (pathname.startsWith("/dashboard/founder") && session?.user?.role !== "founder") {
+        return NextResponse.redirect(new URL("/unauthorized", request.url));
+    };
+
+    if (pathname.startsWith("/dashboard/collaborator") && session?.user?.role !== "collaborator") {
+        return NextResponse.redirect(new URL("/unauthorized", request.url));
     };
 
     return NextResponse.next();
 };
 
-export const config = {
-    matcher: [ "/auth/signin", "/auth/signup", "/dashboard/:path*", ], };
+export const config = { matcher: [ "/auth/signin", "/auth/signup", "/dashboard/:path*", ], };

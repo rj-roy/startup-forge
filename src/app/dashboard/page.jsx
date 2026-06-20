@@ -12,7 +12,7 @@ const Dashboard = async () => {
         recruiter: '/dashboard/collaborator',
         admin: '/dashboard/admin'
     };
-    redirect(roleRouters[session?.user?.role] ?? '/signin');
+    redirect(roleRouters[session?.user?.role] ?? '/auth/signin');
 };
 
 export default Dashboard;
