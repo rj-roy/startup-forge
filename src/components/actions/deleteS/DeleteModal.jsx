@@ -1,9 +1,9 @@
 'use client'
-import { deleteStartupAction } from "@/lib/actions/deleteStartupAction";
+import { deleteAction } from "@/lib/actions/deleteAction";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function DeleteModal({ isOpen, onClose, startupId, startupName }) {
+export default function DeleteModal({ isOpen, onClose, id, name }) {
     const router = useRouter();
     const [deleting, setDeleting] = useState(false);
     const [error, setError] = useState(null);
@@ -15,7 +15,7 @@ export default function DeleteModal({ isOpen, onClose, startupId, startupName })
         setError(null);
 
         try {
-            await deleteStartupAction(startupId);
+            await deleteAction('/api/startup/delete',id);
             await new Promise((resolve) => setTimeout(resolve, 1500));
             onClose();
             router.push("/dashboard/founder");
@@ -48,7 +48,7 @@ export default function DeleteModal({ isOpen, onClose, startupId, startupName })
                     {/* Text */}
                     <div className="flex-1">
                         <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">
-                            Delete {startupName}?
+                            Delete {name}?
                         </h3>
                         <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
                             This action cannot be undone. All data, team members, and applications

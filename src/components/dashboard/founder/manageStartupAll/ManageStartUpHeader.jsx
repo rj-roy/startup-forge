@@ -1,5 +1,5 @@
+import DeleteComponent from "@/components/actions/deleteS/DeleteComponent";
 import Image from "next/image";
-import DeleteStartup from "./deleteS/DeleteStartup";
 
 export default function ManageStartupHeader({ startup }) {
     return (
@@ -27,7 +27,7 @@ export default function ManageStartupHeader({ startup }) {
                         </p>
                     </div>
                 </div>
-                <DeleteStartup id={startup._id} name={startup.startup_name} />
+                <DeleteComponent id={startup._id} name={startup.startup_name} />
             </div>
         </div>
     );

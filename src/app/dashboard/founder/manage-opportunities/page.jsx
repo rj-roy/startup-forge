@@ -2,12 +2,16 @@ import OpList from "@/components/dashboard/founder/manageOpportunities/OpList";
 import { getOpportunitesByFounderId } from "@/lib/api/getData";
 import { getUserSession } from "@/lib/core/session";
 
+export const metadata = {
+    title: "Manage Opportunities | Startup Forge",
+    description: "Manage Opportunities",
+};
+
 const ManageOpportunities = async () => {
     const session = await getUserSession();
     const allOpportunities = await getOpportunitesByFounderId(session?.user?.id);
-    console.log(allOpportunities);
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-black-bg p-6">
+        <div className="min-h-screen bg-white-bg dark:bg-black-bg p-6">
             <div className="max-w-6xl mx-auto">
                 <div className="flex items-center justify-between mb-8">
                     <div>

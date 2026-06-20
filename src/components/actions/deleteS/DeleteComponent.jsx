@@ -1,9 +1,9 @@
 'use client'
 import { useState } from "react";
-import DeleteModal from "./DeleteModal";
 import { Trash2 } from "lucide-react";
+import DeleteModal from "./DeleteModal";
 
-export default function DeleteStartup({ id, name }) {
+export default function DeleteComponent({ id, name }) {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -20,8 +20,8 @@ export default function DeleteStartup({ id, name }) {
             <DeleteModal
                 isOpen={isOpen}
                 onClose={() => setIsOpen(false)}
-                startupId={id}
-                startupName={name}
+                id={id}
+                name={name}
             />
         </>
     );

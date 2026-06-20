@@ -59,7 +59,7 @@ const DashNav = () => {
                         <FaAngleRight className="size-8 fixed top-100 bottom-100    " />
                     )}
                 </button>
-                <aside className={`fixed top-16 z-40 h-screen pb-15 w-64 py-5 bg-white-bg dark:bg-black-bg flex flex-col transition-transform duration-300 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}>
+                <aside className={`fixed top-16 z-40 h-screen pb-15 w-64 py-5 bg-white-bg dark:bg-black-bg flex flex-col transition-transform duration-300 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 border-r border-r-gray-300 dark:border-r-gray-800 shadow-r-sm`}>
                     {/* Header */}
                     <div className="p-6">
                         <div className="flex justify-between">
