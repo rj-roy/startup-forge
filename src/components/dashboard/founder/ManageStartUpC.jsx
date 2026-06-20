@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import ManageStartupHeader from "./ManageStartUpHeader";
 import ManageStartupForm from "./ManageStartupForm";
 import ManageStartupActions from "./ManageStartupActions";
+import { patchStartup } from "@/lib/actions/patchStartup";
 
 export default function ManageStartupC({defStartup}) {
     const [startup, setStartup] = useState(defStartup);
@@ -19,12 +20,8 @@ export default function ManageStartupC({defStartup}) {
     const handleSave = async () => {
         setSaving(true);
         try {
-            // Replace with actual API call
-            // await fetch(`/api/startups/${startup._id}`, {
-            //   method: 'PATCH',
-            //   headers: { 'Content-Type': 'application/json' },
-            //   body: JSON.stringify(startup)
-            // });
+            const { _id, ...updateData } = startup;
+            await patchStartup(_id, updateData);
 
             await new Promise(resolve => setTimeout(resolve, 1000));
             console.log("PATCH request:", startup);

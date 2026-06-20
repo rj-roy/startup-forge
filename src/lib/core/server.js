@@ -5,6 +5,17 @@ export const serverFetch = async (path) => {
     // return res.json();
 };
 
+export const serverMutation = async (path, data, method ) => {
+    const res = await fetch(`${baseUrl}${path}`, {
+        method: method,
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    });
+    return handleStatusCode(res);
+};
+
 export const handleStatusCode = async (res) => {
     if (res.status === 401) {
         redirect('/unauthorized');
