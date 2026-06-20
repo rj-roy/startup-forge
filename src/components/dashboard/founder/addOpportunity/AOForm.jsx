@@ -14,12 +14,17 @@ const emptyOpportunity = {
     founder_id: ""
 };
 
-export default function AOForm({ data, onChange, errors = {} }) {
+export default function AOForm({ data, onChange, errors = {}, startupName, startupId }) {
     const [skillInput, setSkillInput] = useState("");
-    const {data:session} = authClient.useSession();
+    const { data: session } = authClient.useSession();
 
     const updateField = (field, value) => {
-        const newData = { ...data, [field]: value, 'founder_id': session?.user?.id };
+        const newData = {
+            ...data, [field]: value,
+            'founder_id': session?.user?.id,
+            'industry_id': startupId,
+            'industry_name': startupName
+        };
         onChange(newData);
     };
 
@@ -126,8 +131,8 @@ export default function AOForm({ data, onChange, errors = {} }) {
                                     type="button"
                                     onClick={() => toggleWorkType(type)}
                                     className={`px-4 py-2.5 rounded-lg text-sm font-medium border transition-all duration-200 ${isSelected
-                                            ? "bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800"
-                                            : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700"
+                                        ? "bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800"
+                                        : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700"
                                         }`}
                                 >
                                     {type}

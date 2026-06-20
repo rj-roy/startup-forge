@@ -1,6 +1,8 @@
 "use client";
 
+import { patchAction } from "@/lib/actions/patchAction";
 import { useState, useEffect } from "react";
+import { toast, ToastContainer } from "react-toastify";
 
 const workTypes = ["Remote", "On-site", "Hybrid"];
 const commitmentLevels = ["Full-time", "Part-time", "Contract", "Freelance", "Internship"];
@@ -10,7 +12,6 @@ export default function EditOpModal({ opportunity, onClose, onSave }) {
     const [skillInput, setSkillInput] = useState("");
     const [isSaving, setIsSaving] = useState(false);
 
-    // Reset form when opportunity changes
     useEffect(() => {
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setFormData(opportunity);
@@ -54,7 +55,11 @@ export default function EditOpModal({ opportunity, onClose, onSave }) {
         e.preventDefault();
         setIsSaving(true);
 
-        // Simulate API call
+        const { _id, ...updatedData } = formData;
+        await patchAction(_id, updatedData, '/api/opportunities/update', '/dashboard/founder/manage-opportunities')
+
+        alert("Opportunity updated successfully!");
+        toast.success("Opportunity updated successfully!");
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
         onSave(formData);
@@ -63,6 +68,7 @@ export default function EditOpModal({ opportunity, onClose, onSave }) {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <ToastContainer />
             {/* Backdrop */}
             <div
                 className="absolute inset-0 bg-black/50 backdrop-blur-sm"
@@ -119,8 +125,8 @@ export default function EditOpModal({ opportunity, onClose, onSave }) {
                                         type="button"
                                         onClick={() => toggleWorkType(type)}
                                         className={`px-4 py-2 rounded-lg text-sm font-medium border transition-all duration-200 ${isSelected
-                                                ? "bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800"
-                                                : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700"
+                                            ? "bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800"
+                                            : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700"
                                             }`}
                                     >
                                         {type}

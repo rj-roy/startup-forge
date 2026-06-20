@@ -7,8 +7,6 @@ export default function OpList({ opportunities }) {
     const [editingOpportunity, setEditingOpportunity] = useState(null);
 
     const handleSave = (updatedOpportunity) => {
-        // TODO: Call your API to update the opportunity
-        console.log("Saving updated opportunity:", updatedOpportunity);
         setEditingOpportunity(null);
     };
 

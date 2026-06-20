@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
 import { createOpportunities } from "@/lib/actions/createOpportunities";
 
-export default function AOComponent() {
+export default function AOComponent({startupName, startupId}) {
     const router = useRouter();
     const [opportunity, setOpportunity] = useState(emptyOpportunity);
     const [submitting, setSubmitting] = useState(false);
@@ -96,6 +96,8 @@ export default function AOComponent() {
                     data={opportunity}
                     onChange={handleChange}
                     errors={errors}
+                    startupName={startupName}
+                    startupId={startupId}
                 />
             </div>
 

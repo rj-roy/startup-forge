@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import ManageStartupHeader from "./ManageStartUpHeader";
 import ManageStartupForm from "./ManageStartupForm";
 import ManageStartupActions from "./ManageStartupActions";
-import { patchStartup } from "@/lib/actions/patchStartup";
 import { toast, ToastContainer } from "react-toastify";
+import { patchAction } from "@/lib/actions/patchAction";
 
 export default function ManageStartupC({defStartup}) {
     const [startup, setStartup] = useState(defStartup);
@@ -22,7 +22,7 @@ export default function ManageStartupC({defStartup}) {
         setSaving(true);
         try {
             const { _id, ...updateData } = startup;
-            await patchStartup(_id, updateData);
+            await patchAction(_id, updateData, '/api/startup', '/dashboard/founder/manage-startup');
 
             await new Promise(resolve => setTimeout(resolve, 1000));
 
