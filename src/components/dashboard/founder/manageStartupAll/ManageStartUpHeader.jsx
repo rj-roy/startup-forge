@@ -27,7 +27,7 @@ export default function ManageStartupHeader({ startup }) {
                         </p>
                     </div>
                 </div>
-                <DeleteComponent id={startup._id} name={startup.startup_name} path={'/api/startup/delete'} />
+                <DeleteComponent id={startup._id} name={startup.startup_name} path={'/api/startup/delete'} revPath={'/dashboard/founder/create-startup'} />
             </div>
         </div>
     );

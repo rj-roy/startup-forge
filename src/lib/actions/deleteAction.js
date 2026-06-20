@@ -4,13 +4,13 @@ import { revalidatePath } from "next/cache";
 import { serverDelete } from "../core/server";
 import { getUserSession } from "../core/session";
 
-export const deleteAction = async (path, id) => {
+export const deleteAction = async (path, id, revPath) => {
   const session = await getUserSession();
     if (!session?.user?.id || !session?.user?.role === 'founder') {
         throw new Error("Unauthorized");
     };
 
   const res = await serverDelete(`${path}/${id}`);
-  revalidatePath("/dashboard/founder");
+  revalidatePath(`${revPath}` || "/dashboard");
   return res;
 };
