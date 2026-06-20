@@ -2,7 +2,6 @@ import Image from "next/image";
 import DeleteStartup from "./deleteS/DeleteStartup";
 
 export default function ManageStartupHeader({ startup }) {
-    console.log(startup.startup_name);
     return (
         <div className="bg-white-bg dark:bg-black-bg border-b border-gray-200 dark:border-gray-700">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center">

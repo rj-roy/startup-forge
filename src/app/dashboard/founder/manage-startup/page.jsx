@@ -11,7 +11,6 @@ const ManageStartup = async () => {
     const session = await getUserSession();
     const userId = session?.user?.id;
     const startup = await getStartupByFounderId(userId || null);
-    console.log(startup);
 
     if (!session){
         redirect("/auth/signin");

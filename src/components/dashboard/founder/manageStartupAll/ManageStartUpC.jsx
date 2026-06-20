@@ -4,6 +4,7 @@ import ManageStartupHeader from "./ManageStartUpHeader";
 import ManageStartupForm from "./ManageStartupForm";
 import ManageStartupActions from "./ManageStartupActions";
 import { patchStartup } from "@/lib/actions/patchStartup";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function ManageStartupC({defStartup}) {
     const [startup, setStartup] = useState(defStartup);
@@ -24,13 +25,11 @@ export default function ManageStartupC({defStartup}) {
             await patchStartup(_id, updateData);
 
             await new Promise(resolve => setTimeout(resolve, 1000));
-            console.log("PATCH request:", startup);
 
             setOriginalStartup(startup);
             alert("Changes saved successfully!");
         } catch (error) {
-            console.error("Save failed:", error);
-            alert("Failed to save changes");
+            toast.error("Failed to save changes");
         } finally {
             setSaving(false);
         }
@@ -44,6 +43,7 @@ export default function ManageStartupC({defStartup}) {
 
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-black-bg">
+            <ToastContainer/>
             <ManageStartupHeader startup={startup} />
 
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

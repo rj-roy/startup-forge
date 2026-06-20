@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 
 const industries = [
     "AgriTech", "Artificial Intelligence", "Automotive", "CleanTech",
@@ -71,8 +72,8 @@ export default function ManageStartupForm({ startup, onChange }) {
             // Update the logo URL with the Cloudinary URL
             updateField("logo", result.url);
         } catch (error) {
-            console.error("Upload error:", error);
-            setUploadError(error.message || "Failed to upload logo");
+            toast.error("Upload error:");
+            setUploadError("Failed to upload logo");
         } finally {
             setUploading(false);
             // Reset the file input
@@ -101,6 +102,7 @@ export default function ManageStartupForm({ startup, onChange }) {
 
     return (
         <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 space-y-8">
+            <ToastContainer/>
             {/* Logo & Basic Info */}
             <div className="space-y-6">
                 <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 border-b border-gray-200 dark:border-gray-700 pb-3">

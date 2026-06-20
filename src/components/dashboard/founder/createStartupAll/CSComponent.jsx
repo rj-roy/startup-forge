@@ -5,6 +5,7 @@ import CSHeader from "./CSHeader";
 import CSForm, { emptyStartup } from "./CSForm";
 import CSActions from "./CSActions";
 import { createStartup } from "@/lib/actions/createStartup";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function CSComponent({founderId}) {
     const router = useRouter();
@@ -53,15 +54,12 @@ export default function CSComponent({founderId}) {
         setSubmitting(true);
         try {
             await createStartup(startup);
-
             await new Promise(resolve => setTimeout(resolve, 1500));
-            console.log("POST request:", startup);
-
-            // Redirect to manage page or startup list
             router.push("/dashboard/founder");
+
         } catch (error) {
-            console.error("Create failed:", error);
-            alert("Failed to create startup. Please try again.");
+            toast.error("Create failed:", error);
+            toast.error("Failed to create startup. Please try again.");
         } finally {
             setSubmitting(false);
         }
@@ -76,6 +74,7 @@ export default function CSComponent({founderId}) {
 
     return (
         <div className="min-h-screen bg-white-bg dark:bg-black-bg">
+            <ToastContainer/>
             <CSHeader />
 
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
