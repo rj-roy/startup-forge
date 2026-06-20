@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { authClient } from '@/lib/auth-client';
 import ThemeSwitch from '../ui/Themeswitch';
+import { UserCircleIcon } from 'lucide-react';
+import Image from 'next/image';
 
 export default function NavBar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -97,9 +99,19 @@ export default function NavBar() {
                                         className="flex items-center gap-2 lg:gap-3 px-3 lg:px-4 py-2 rounded-full bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105"
                                     >
                                         <div className="w-7 h-7 lg:w-8 lg:h-8 rounded-full bg-white/20 flex items-center justify-center">
-                                            <svg className="w-4 h-4 lg:w-5 lg:h-5" fill="currentColor" viewBox="0 0 24 24">
-                                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                                            </svg>
+                                            {
+                                                session?.user?.profileImage ? (
+                                                    <Image
+                                                        src={session?.user?.profileImage}
+                                                        alt="Profile Image"
+                                                        width={500}
+                                                        height={500}
+                                                        className="rounded-full"
+                                                    />
+                                                ) : (
+                                                    <UserCircleIcon className="w-5 h-5 text-white" />
+                                                )
+                                            }
                                         </div>
                                         <span className="hidden lg:block text-sm">
                                             {session.user?.name?.split(' ')[0] || 'User'}
@@ -132,7 +144,7 @@ export default function NavBar() {
                                                     Dashboard
                                                 </Link>
                                                 <Link
-                                                    href="/profile"
+                                                    href={`/dashboard/${session?.user?.role}/profile`}
                                                     className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                                                     onClick={() => setIsUserMenuOpen(false)}
                                                 >

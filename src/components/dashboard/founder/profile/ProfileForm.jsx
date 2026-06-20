@@ -1,11 +1,12 @@
 "use client";
+import { patchAction } from "@/lib/actions/patchAction";
 import Image from "next/image";
 import { useState } from "react";
 
 export default function ProfileForm({ initialData }) {
-    const [name, setName] = useState(initialData?.name || "");
-    const [email, setEmail] = useState(initialData?.email || "");
-    const [profileImage, setProfileImage] = useState(initialData?.profileImage || "");
+    const [name, setName] = useState(initialData?.name);
+    const [email, setEmail] = useState(initialData?.email);
+    const [profileImage, setProfileImage] = useState(initialData?.profileImage);
 
     const [uploading, setUploading] = useState(false);
     const [uploadError, setUploadError] = useState(null);
@@ -57,7 +58,9 @@ export default function ProfileForm({ initialData }) {
         setSaveStatus(null);
 
         try {
-            
+            const updatedData = {name, email, profileImage};
+            await patchAction(initialData.id, updatedData, '/api/user/update', '/dashboard/founder/profile');
+            alert('Profile updated successfully!');
             await new Promise((resolve) => setTimeout(resolve, 1000));
 
             setSaveStatus("success");
@@ -83,10 +86,11 @@ export default function ProfileForm({ initialData }) {
                         <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-gray-100 dark:border-gray-800 shadow-sm bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
                             {profileImage ? (
                                 <Image
-                                    width={200}
-                                    height={200}
+                                    width={500}
+                                    height={500}
                                     src={profileImage}
                                     alt="Profile"
+                                    loading="eager"
                                     className="w-full h-full object-cover"
                                 />
                             ) : (

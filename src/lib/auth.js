@@ -24,13 +24,18 @@ export const auth = betterAuth({
         additionalFields: {
             role: {
                 type: "string",
-                required: false,
+                required: true,
                 defaultValue: "founder",
             },
             plan: {
                 type: "string",
-                required: false,
+                required: true,
                 defaultValue: "founder_free",
+            },
+            profileImage: {
+                type: "string",
+                required: true,
+                defaultValue: "https://res.cloudinary.com/dbkpia8ri/image/upload/v1781958996/images_rbgnle.png",
             },
         },
     },

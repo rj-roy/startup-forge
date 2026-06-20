@@ -10,9 +10,10 @@ export default async function ProfilePage() {
     const session = await getUserSession();
 
     const userData = {
+        id: session?.user?.id,
         name: session?.user?.name,
         email: session?.user?.email,
-        profileImage: session?.user?.image
+        profileImage: session?.user?.profileImage
     };
 
     return (

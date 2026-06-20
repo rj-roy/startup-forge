@@ -12,6 +12,7 @@ export default function SignupComponent() {
         password: '',
         role: 'founder',
         plan: '',
+        profileImage: "https://res.cloudinary.com/dbkpia8ri/image/upload/v1781958996/images_rbgnle.png",
     });
     const [errors, setErrors] = useState({});
     const [isLoading, setIsLoading] = useState(false);
@@ -60,7 +61,8 @@ export default function SignupComponent() {
                 email: formData.email,
                 password: formData.password,
                 role: formData.role,
-                plan: plan
+                plan: plan,
+                profileImage: "https://res.cloudinary.com/dbkpia8ri/image/upload/v1781958996/images_rbgnle.png",
             });
             if (data) {
                 toast.success('Account created successfully! Redirecting...');
