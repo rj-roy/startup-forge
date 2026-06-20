@@ -38,7 +38,7 @@ export default function AOForm({ data, onChange, errors = {} }) {
             const newData = { ...data, required_skills: [...data.required_skills, trimmed] };
             onChange(newData);
             setSkillInput("");
-        }
+        };
     };
 
     const removeSkill = (index) => {
@@ -51,7 +51,6 @@ export default function AOForm({ data, onChange, errors = {} }) {
 
     return (
         <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 space-y-6">
-            {/* Role Title */}
             <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Role Title <span className="text-red-500">*</span>

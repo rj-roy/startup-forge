@@ -1,6 +1,6 @@
 export default function AOActions({ onSubmit, onCancel, submitting, hasChanges }) {
     return (
-        <div className="sticky bottom-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-lg">
+        <div className="sticky bottom-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-lg rounded-2xl">
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
                 <div className="flex items-center justify-between">
                     <p className="text-sm text-gray-600 dark:text-gray-400">

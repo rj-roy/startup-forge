@@ -7,7 +7,7 @@ import { getStartupByFounderId } from "../api/getData";
 export const createStartup = async (data) => {
     
     const session = await getUserSession();
-    if (!session?.user?.id) {
+    if (!session?.user?.id || !session?.user?.role === 'founder') {
         throw new Error("Unauthorized");
     };
 

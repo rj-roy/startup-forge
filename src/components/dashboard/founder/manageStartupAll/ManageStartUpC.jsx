@@ -27,7 +27,7 @@ export default function ManageStartupC({defStartup}) {
             await new Promise(resolve => setTimeout(resolve, 1000));
 
             setOriginalStartup(startup);
-            alert("Changes saved successfully!");
+            toast.success("Changes saved successfully!");
         } catch (error) {
             toast.error("Failed to save changes");
         } finally {

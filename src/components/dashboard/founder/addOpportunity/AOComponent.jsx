@@ -5,6 +5,7 @@ import AOHeader from "./AOHeader";
 import AOActions from "./AOActions";
 import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
+import { createOpportunities } from "@/lib/actions/createOpportunities";
 
 export default function AOComponent() {
     const router = useRouter();
@@ -41,16 +42,11 @@ export default function AOComponent() {
         if (!validate()) {
             window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
-        }
+        };
 
         setSubmitting(true);
         try {
-            // Replace with actual API call
-            // const response = await fetch("/api/opportunities", {
-            //   method: "POST",
-            //   headers: { "Content-Type": "application/json" },
-            //   body: JSON.stringify(opportunity)
-            // });
+            await createOpportunities(opportunity);
 
             await new Promise(resolve => setTimeout(resolve, 1500));
             toast.success("Successfully posted opportunity!",);
@@ -66,17 +62,16 @@ export default function AOComponent() {
     const handleCancel = () => {
         if (hasChanges && !confirm("Discard all changes and go back?")) {
             return;
-        }
+        };
         router.push("/dashboard/founder");
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-black-bg">
+        <div className="min-h-screen bg-white-bg dark:bg-black-bg">
             <ToastContainer />
             <AOHeader />
 
-            <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                {/* Validation Error Summary */}
+            <div className=" mx-auto px-2 sm:px-3 lg:px-4 py-8">
                 {Object.keys(errors).length > 0 && (
                     <div className="mb-6 px-4 py-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
                         <div className="flex items-start gap-3">
@@ -95,7 +90,7 @@ export default function AOComponent() {
                             </div>
                         </div>
                     </div>
-                )}
+                )};
 
                 <AOForm
                     data={opportunity}
@@ -112,4 +107,4 @@ export default function AOComponent() {
             />
         </div>
     );
-}
+};

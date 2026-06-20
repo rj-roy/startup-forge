@@ -6,9 +6,9 @@ import { getUserSession } from "../core/session";
 
 export const deleteStartupAction = async (id) => {
   const session = await getUserSession();
-  if (!session?.user?.id) {
-    throw new Error("Unauthorized");
-  }
+    if (!session?.user?.id || !session?.user?.role === 'founder') {
+        throw new Error("Unauthorized");
+    };
 
   const res = await serverDelete(`/api/startup/delete/${id}`);
   revalidatePath("/dashboard/founder");
