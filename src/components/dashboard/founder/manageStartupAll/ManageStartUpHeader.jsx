@@ -1,9 +1,11 @@
 import Image from "next/image";
+import DeleteStartup from "./deleteS/DeleteStartup";
 
 export default function ManageStartupHeader({ startup }) {
+    console.log(startup.startup_name);
     return (
         <div className="bg-white-bg dark:bg-black-bg border-b border-gray-200 dark:border-gray-700">
-            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center">
                 <div className="flex items-center gap-4">
                     <Image
                         width={200}
@@ -17,8 +19,6 @@ export default function ManageStartupHeader({ startup }) {
                             <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                                 {startup.startup_name}
                             </h1>
-                            {/* <Badge variant="success">
-                            </Badge> */}
                             <span className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium">
                                 {startup.status === "approved" ? "Approved" : startup.status}
                             </span>
@@ -28,6 +28,7 @@ export default function ManageStartupHeader({ startup }) {
                         </p>
                     </div>
                 </div>
+                <DeleteStartup id={startup._id} name={startup.startup_name} />
             </div>
         </div>
     );

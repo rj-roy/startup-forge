@@ -16,6 +16,13 @@ export const serverMutation = async (path, data, method ) => {
     return handleStatusCode(res);
 };
 
+export const serverDelete = async (path) => {
+    const res = await fetch(`${baseUrl}${path}`, {
+        method: 'DELETE',
+    });
+    return handleStatusCode(res);
+};
+
 export const handleStatusCode = async (res) => {
     if (res.status === 401) {
         redirect('/unauthorized');
