@@ -24,5 +24,16 @@ export const handleStatusCode = async (res) => {
     } else if (!res.ok) {
         throw new Error("Something went wrong! Please try again later.");
     };
-    return res.json();
+    
+    const text = await res.text();
+    if (!text) {
+        return null; 
+    }
+    
+    try {
+        return JSON.parse(text);
+    } catch (error) {
+        console.error('JSON parse error:', error);
+        throw new Error("Invalid response from server");
+    }
 };

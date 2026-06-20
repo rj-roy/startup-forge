@@ -11,6 +11,10 @@ export const getStartupById = async (id) => {
 };
 
 export const getStartupByFounderId = async (id) => {
-  const startups = await serverFetch(`/api/startups/founder/${id}/count`);
+  const startups = await serverFetch(`/api/startups/founder/${id}`);
   return startups;
+};
+
+export const getStartupsFiled = async (field) => {
+    return serverFetch(`/api/startups/field?field_name=${field}`);
 };

@@ -1,5 +1,10 @@
 import DashNav from "@/components/dashboard/DashNav";
 
+export const metadata = {
+    title: "Dashboard | Startup Forge",
+    description: "Dashboard",
+};
+
 export default function DashLayout({ children }) {
   return (
     <div className="w-full max-w-6xl mx-auto flex bg-white-bg dark:bg-black-bg dark:text-gray-100 text-black">

@@ -5,7 +5,7 @@ const Dashboard = async () => {
     const session = await getUserSession();
 
     if (!session) {
-        redirect('/siginin');
+        redirect('/auth/signin');
     };
     const roleRouters = {
         seeker: '/dashboard/founder',

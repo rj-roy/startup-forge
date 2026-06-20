@@ -2,6 +2,7 @@ import StartupCard from '@/components/startups/StartUpCard';
 import { getStartupByFounderId } from '@/lib/api/getData';
 import { getUserSession } from '@/lib/core/session';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import React from 'react';
 
 const MyStartUp = async () => {
@@ -9,7 +10,14 @@ const MyStartUp = async () => {
     const userId = session?.user?.id;
 
     const startup = await getStartupByFounderId(userId);
-    console.log(startup);
+
+    if (!session) {
+        redirect("/auth/signin");
+    };
+
+    if (!startup) {
+        redirect('/dashboard/founder/create-startup');
+    }
     return (
         <div>
             <div className='flex justify-between mb-5'>
