@@ -11,7 +11,7 @@ const getTeamSizeText = (fundingStage) => {
     return stages[fundingStage] || "2-3 Members";
 };
 
-export default function StartupCard({ startup, onViewDetails }) {
+export default function StartupCard({ startup }) {
     const teamSize = getTeamSizeText(startup.funding_stage);
 
     return (

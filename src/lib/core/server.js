@@ -2,6 +2,7 @@ const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 export const serverFetch = async (path) => {
     const res = await fetch(`${baseUrl}${path}`);
     return handleStatusCode(res);
+    // return res.json();
 };
 
 export const handleStatusCode = async (res) => {
