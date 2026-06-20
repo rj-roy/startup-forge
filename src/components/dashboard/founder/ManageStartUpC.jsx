@@ -4,28 +4,6 @@ import ManageStartupHeader from "./ManageStartUpHeader";
 import ManageStartupForm from "./ManageStartupForm";
 import ManageStartupActions from "./ManageStartupActions";
 
-// Default startup data
-const defaultStartup = {
-    "_id": "6a3626059feb083fc050b7b3",
-    "startup_name": "VisionAI",
-    "logo": "https://picsum.photos/seed/startup20/400/400",
-    "industry": "Artificial Intelligence",
-    "description": "Computer vision solutions for enterprises.",
-    "funding_stage": "Series A",
-    "founder_email": "sophia.green@visionai.com",
-    "founder": {
-        "founder_id": "6a363530ac19cc5f3e99f8b2",
-        "name": "Sophia Green",
-        "title": "CEO & Founder",
-        "linkedin": "https://linkedin.com/in/sophiagreen",
-        "experience": "AI researcher and startup founder."
-    },
-    "our_mission": "VisionAI delivers enterprise-grade, highly accurate computer vision solutions powered by cutting-edge artificial intelligence to solve complex real-world problems. Our platform provides customizable models for object detection, facial recognition, quality control, and spatial analysis, seamlessly integrating into existing enterprise workflows to drive automation and operational efficiency. Driven by a remote, impact-driven culture, we are pushing the boundaries of what AI can achieve, empowering industries ranging from manufacturing to security to harness the transformative power of visual data and shape the future of intelligent automation.",
-    "tech_stack": ["Python", "TensorFlow", "OpenAI API", "AWS"],
-    "culture": ["remote", "impact driven"],
-    "status": "approved"
-};
-
 export default function ManageStartupC({defStartup}) {
     const [startup, setStartup] = useState(defStartup);
     const [originalStartup, setOriginalStartup] = useState(defStartup);

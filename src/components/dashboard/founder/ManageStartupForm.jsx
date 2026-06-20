@@ -16,6 +16,8 @@ export default function ManageStartupForm({ startup, onChange }) {
         tech_stack: "",
         culture: ""
     });
+    const [uploading, setUploading] = useState(false);
+    const [uploadError, setUploadError] = useState(null);
 
     const updateField = (field, value) => {
         const newData = { ...data, [field]: value };
@@ -30,6 +32,52 @@ export default function ManageStartupForm({ startup, onChange }) {
         };
         setData(newData);
         onChange(newData);
+    };
+
+    const handleLogoChange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        // Validate file type
+        if (!file.type.startsWith("image/")) {
+            setUploadError("Please upload a valid image file");
+            return;
+        }
+
+        // Validate file size (2MB max)
+        if (file.size > 2 * 1024 * 1024) {
+            setUploadError("File size must be less than 2MB");
+            return;
+        }
+
+        setUploading(true);
+        setUploadError(null);
+
+        try {
+            const formData = new FormData();
+            formData.append("logo", file);
+
+            const response = await fetch("/api/upload-logo", {
+                method: "POST",
+                body: formData,
+            });
+
+            const result = await response.json();
+
+            if (!result.success) {
+                throw new Error(result.message || "Upload failed");
+            }
+
+            // Update the logo URL with the Cloudinary URL
+            updateField("logo", result.url);
+        } catch (error) {
+            console.error("Upload error:", error);
+            setUploadError(error.message || "Failed to upload logo");
+        } finally {
+            setUploading(false);
+            // Reset the file input
+            e.target.value = "";
+        }
     };
 
     const addTag = (field, value) => {
@@ -51,17 +99,6 @@ export default function ManageStartupForm({ startup, onChange }) {
         onChange(newData);
     };
 
-    const handleLogoChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                updateField("logo", reader.result);
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-
     return (
         <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 space-y-8">
             {/* Logo & Basic Info */}
@@ -72,22 +109,57 @@ export default function ManageStartupForm({ startup, onChange }) {
 
                 <div className="flex items-start gap-6">
                     <div>
-                        <Image
-                            height={200}
-                            width={200}
-                            src={data.logo}
-                            alt="Logo"
-                            className="w-24 h-24 rounded-xl object-cover border-2 border-gray-200 dark:border-gray-700"
-                        />
-                        <label className="mt-2 block cursor-pointer text-sm text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 font-medium">
-                            Change Logo
+                        <div className="relative">
+                            <Image
+                                width={200}
+                                height={200}
+                                src={data.logo}
+                                alt="Logo"
+                                className={`w-24 h-24 rounded-xl object-cover border-2 border-gray-200 dark:border-gray-700 ${uploading ? "opacity-50" : ""
+                                    }`}
+                            />
+
+                            {/* Upload Overlay */}
+                            {uploading && (
+                                <div className="absolute inset-0 flex items-center justify-center bg-black/40 rounded-xl">
+                                    <svg className="animate-spin w-8 h-8 text-white" fill="none" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                </div>
+                            )}
+                        </div>
+
+                        <label
+                            className={`mt-2 block cursor-pointer text-sm font-medium ${uploading
+                                    ? "text-gray-400 dark:text-gray-600 cursor-not-allowed"
+                                    : "text-indigo-600 dark:text-indigo-400 hover:text-indigo-700"
+                                }`}
+                        >
+                            {uploading ? "Uploading..." : "Change Logo"}
                             <input
                                 type="file"
                                 accept="image/*"
                                 onChange={handleLogoChange}
+                                disabled={uploading}
                                 className="hidden"
                             />
                         </label>
+
+                        {/* Upload Error */}
+                        {uploadError && (
+                            <div className="mt-2 flex items-start gap-1">
+                                <svg className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                                </svg>
+                                <p className="text-xs text-red-500">{uploadError}</p>
+                            </div>
+                        )}
+
+                        {/* Upload Hint */}
+                        <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                            PNG, JPG up to 2MB
+                        </p>
                     </div>
 
                     <div className="flex-1 space-y-4">
