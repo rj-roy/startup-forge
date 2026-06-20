@@ -50,7 +50,7 @@ export default function AOComponent() {
 
             await new Promise(resolve => setTimeout(resolve, 1500));
             toast.success("Successfully posted opportunity!",);
-            router.push("/dashboard/founder");
+            router.push("/dashboard/founder/manage-opportunities");
         } catch (error) {
             console.error("Create failed:");
             toast.error("Failed to post opportunity. Please try again.");
