@@ -4,8 +4,9 @@ import { useState } from "react";
 import CSHeader from "./CSHeader";
 import CSForm, { emptyStartup } from "./CSForm";
 import CSActions from "./CSActions";
+import { createStartup } from "@/lib/actions/createStartup";
 
-export default function CSComponent() {
+export default function CSComponent({founderId}) {
     const router = useRouter();
     const [startup, setStartup] = useState(emptyStartup);
     const [submitting, setSubmitting] = useState(false);
@@ -51,14 +52,8 @@ export default function CSComponent() {
 
         setSubmitting(true);
         try {
-            // Replace with actual API call
-            // const response = await fetch("/api/startups", {
-            //   method: "POST",
-            //   headers: { "Content-Type": "application/json" },
-            //   body: JSON.stringify(startup)
-            // });
+            await createStartup(startup);
 
-            // Simulate API call
             await new Promise(resolve => setTimeout(resolve, 1500));
             console.log("POST request:", startup);
 
@@ -80,7 +75,7 @@ export default function CSComponent() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-black-bg">
+        <div className="min-h-screen bg-white-bg dark:bg-black-bg">
             <CSHeader />
 
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -88,7 +83,7 @@ export default function CSComponent() {
                 {Object.keys(errors).length > 0 && (
                     <div className="mb-6 px-4 py-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
                         <div className="flex items-start gap-3">
-                            <svg className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-5 h-5 text-red-600 dark:text-red-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                             </svg>
                             <div>
@@ -109,6 +104,7 @@ export default function CSComponent() {
                     data={startup}
                     onChange={handleChange}
                     errors={errors}
+                    founderId={founderId}
                 />
             </div>
 

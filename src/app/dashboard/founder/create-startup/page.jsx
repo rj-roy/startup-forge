@@ -9,6 +9,7 @@ export const metadata = {
 
 const CreateStartup = async () => {
     const session = await getUserSession();
+    const founderId = session?.user?.id;
 
     if (!session) {
         redirect("/auth/signin");
@@ -16,7 +17,7 @@ const CreateStartup = async () => {
 
     return (
         <div>
-            <CSComponent/>
+            <CSComponent founderId={founderId}/>
         </div>
     );
 };
