@@ -7,12 +7,24 @@ export async function proxy(request) {
         headers: await headers(),
     });
 
-    if(session){
-        return NextResponse.redirect(new URL('/', request.url));
-    } else {
-        return NextResponse.next();
+    const pathname = request.nextUrl.pathname;
+
+    if (session && ["/auth/signin", "/auth/signup"].includes(pathname)) {
+        return NextResponse.redirect(new URL("/", request.url));
     };
+
+    if (pathname.startsWith("/dashboard") && !session) {
+        return NextResponse.redirect(
+            new URL("/auth/signin", request.url)
+        );
+    };
+
+    if (pathname.startsWith("/dashboard/admin") && session?.user?.role !== "admin") {
+        return NextResponse.redirect(new URL("/", request.url));
+    };
+
+    return NextResponse.next();
 };
+
 export const config = {
-    matcher: ['/auth/signin', '/auth/signup'],
-};
+    matcher: [ "/auth/signin", "/auth/signup", "/dashboard/:path*", ], };
