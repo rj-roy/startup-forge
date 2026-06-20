@@ -90,7 +90,7 @@ export default function AOComponent() {
                             </div>
                         </div>
                     </div>
-                )};
+                )}
 
                 <AOForm
                     data={opportunity}

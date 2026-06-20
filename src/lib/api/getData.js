@@ -18,3 +18,8 @@ export const getStartupByFounderId = async (id) => {
 export const getStartupsFiled = async (field) => {
     return serverFetch(`/api/startups/field?field_name=${field}`);
 };
+
+export const getOpportunitesByFounderId = async (id) => {
+  const opportunities = await serverFetch(`/api/opportunities/founder/${id}`);
+  return opportunities;
+};
