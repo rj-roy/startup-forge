@@ -13,7 +13,7 @@ const fundingStages = ["Pre-Seed", "Seed", "Series A", "Series B", "Series C"];
 
 const emptyStartup = {
     startup_name: "",
-    logo: "https://picsum.photos/seed/default/400/400",
+    logo: "https://res.cloudinary.com/dbkpia8ri/image/upload/v1781958996/images_rbgnle.png",
     industry: "",
     description: "",
     funding_stage: "",
@@ -127,6 +127,7 @@ export default function CSForm({ data, onChange, errors = {}, founderId }) {
                                 height={400}
                                 src={data.logo}
                                 alt="Logo"
+                                loading="eager"
                                 className={`w-24 h-24 rounded-xl object-cover border-2 border-gray-200 dark:border-gray-700 ${uploading ? "opacity-50" : ""
                                     }`}
                             />
