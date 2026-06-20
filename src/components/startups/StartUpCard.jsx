@@ -1,27 +1,5 @@
+import Image from "next/image";
 import Link from "next/link";
-import Badge from "../ui/Badge";
-import Button from "../ui/Button";
-
-const industryVariants = {
-    "EdTech": "edtech",
-    "FinTech": "fintech",
-    "CleanTech": "cleantech",
-    "HealthTech": "healthtech",
-    "AgriTech": "success",
-    "PropTech": "primary",
-    "Marketing": "warning",
-    "TravelTech": "primary",
-    "Cybersecurity": "default",
-    "ConstructionTech": "default",
-    "FoodTech": "success",
-    "Automotive": "default",
-    "HRTech": "primary",
-    "RetailTech": "warning",
-    "Creator Economy": "primary",
-    "Cloud Computing": "primary",
-    "SportsTech": "success",
-    "Artificial Intelligence": "primary",
-};
 
 const getTeamSizeText = (fundingStage) => {
     const stages = {
@@ -34,14 +12,15 @@ const getTeamSizeText = (fundingStage) => {
 };
 
 export default function StartupCard({ startup, onViewDetails }) {
-    const badgeVariant = industryVariants[startup.industry] || "default";
     const teamSize = getTeamSizeText(startup.funding_stage);
 
     return (
         <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow duration-200 dark:bg-gray-900 dark:border-gray-700 dark:hover:shadow-gray-800/50">
             <div className="flex items-start justify-between mb-4">
                 <div className="flex items-start space-x-4">
-                    <img
+                    <Image
+                        width={200}
+                        height={200}
                         src={startup.logo}
                         alt={startup.startup_name}
                         className="w-12 h-12 rounded-lg object-cover border border-gray-200 dark:border-gray-700"
@@ -55,9 +34,9 @@ export default function StartupCard({ startup, onViewDetails }) {
                         </p>
                     </div>
                 </div>
-                <Badge variant={badgeVariant}>
+                <span className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium">
                     {startup.industry}
-                </Badge>
+                </span>
             </div>
 
             <p className="text-gray-600 mb-4 line-clamp-2 dark:text-gray-300">
@@ -82,7 +61,7 @@ export default function StartupCard({ startup, onViewDetails }) {
 
             {startup.status === "pending" && (
                 <div className="mt-3 pt-3 border-t border-gray-100 dark:border-gray-800">
-                    <Badge variant="warning">Pending Approval</Badge>
+                    <span className="bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium">Pending Approval</span>
                 </div>
             )}
         </div>

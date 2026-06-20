@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function FounderCard({ founder }) {
     return (
         <section className="bg-linear-to-br from-indigo-50 to-blue-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl border border-indigo-100 dark:border-gray-700 p-8">
@@ -13,7 +15,9 @@ export default function FounderCard({ founder }) {
             <div className="flex items-start gap-6 mb-6">
                 <div className="relative">
                     <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-white dark:border-gray-700 shadow-lg">
-                        <img
+                        <Image
+                            width={200}
+                            height={200}
                             src={`https://ui-avatars.com/api/?name=${encodeURIComponent(founder.name)}&background=6366f1&color=fff&size=128`}
                             alt={founder.name}
                             className="w-full h-full object-cover"

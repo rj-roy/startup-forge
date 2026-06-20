@@ -7,7 +7,5 @@ export const metadata = {
 
 export default async function StartupPage({params}) {
     const {id} = await params;
-    console.log(id);
-
     return <SDetailsC id={id} />;
-}
+};

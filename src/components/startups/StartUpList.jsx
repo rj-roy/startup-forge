@@ -3,6 +3,7 @@ import { useState, useMemo } from "react";
 import SearchBar from "./SearchBar";
 import IndustryFilter from "./IndustryFilter";
 import StartupCard from "./StartUpCard";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function StartupList({ startups }) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -24,11 +25,12 @@ export default function StartupList({ startups }) {
   }, [startups, searchQuery, selectedIndustry]);
 
   const handleViewDetails = (startup) => {
-    console.log("Viewing details for:", startup.startup_name);
+    toast.success("Viewing details for:", startup.startup_name);
   };
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <ToastContainer/>
       {/* Header Section */}
       <div className="mb-8 space-y-6">
         <SearchBar onSearch={setSearchQuery} />

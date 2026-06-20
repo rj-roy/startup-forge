@@ -1,29 +1,7 @@
-import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
 
 export default function StartupHeader({ startup }) {
-    const industryVariants = {
-        "EdTech": "edtech",
-        "FinTech": "fintech",
-        "CleanTech": "cleantech",
-        "HealthTech": "healthtech",
-        "AgriTech": "success",
-        "PropTech": "primary",
-        "Marketing": "warning",
-        "TravelTech": "primary",
-        "Cybersecurity": "default",
-        "ConstructionTech": "default",
-        "FoodTech": "success",
-        "Automotive": "default",
-        "HRTech": "primary",
-        "RetailTech": "warning",
-        "Creator Economy": "primary",
-        "Cloud Computing": "primary",
-        "SportsTech": "success",
-        "Artificial Intelligence": "primary",
-    };
-
     return (
         <div className="mb-8">
             {/* Back Button */}
@@ -50,9 +28,9 @@ export default function StartupHeader({ startup }) {
                             <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
                                 {startup.startup_name}
                             </h1>
-                            <Badge variant={industryVariants[startup.industry] || "default"}>
+                            <span className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium">
                                 {startup.industry}
-                            </Badge>
+                            </span>
                         </div>
                         <p className="text-gray-600 dark:text-gray-300 mb-2">
                             {startup.description}

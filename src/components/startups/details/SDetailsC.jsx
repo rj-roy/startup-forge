@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { getStartupById } from "@/lib/api/getData";
 import StartupDetails from "./StartupDetails";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function SDetailsC({ id }) {
     const [startup, setStartup] = useState(null);
@@ -18,7 +19,7 @@ export default function SDetailsC({ id }) {
 
                     setStartup(foundStartup || null);
                 } catch (error) {
-                    console.error("Error fetching startup:", error);
+                    toast.error("Error fetching startup:", error);
                     setStartup(null);
                 } finally {
                     setLoading(false);
@@ -29,11 +30,10 @@ export default function SDetailsC({ id }) {
         }
     }, [id]);
 
-    console.log(startup);
-
     if (loading) {
         return (
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <ToastContainer/>
                 <div className="animate-pulse space-y-8">
                     <div className="h-32 bg-gray-200 dark:bg-gray-800 rounded-xl"></div>
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
