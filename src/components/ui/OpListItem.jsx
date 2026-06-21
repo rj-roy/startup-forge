@@ -22,7 +22,7 @@ export default function OpListItem({ opportunity, onEdit }) {
                         <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 truncate">
                             {opportunity.role_title}
                         </h3>
-                        <span className={`px-2.5 py-0.5 text-xs font-medium rounded-full ${getCommitmentColor(opportunity.commitment_level)}`}>
+                        <span className={`px-2.5 text-nowrap py-0.5 text-xs font-medium rounded-full ${getCommitmentColor(opportunity.commitment_level)}`}>
                             {opportunity.commitment_level}
                         </span>
                     </div>
