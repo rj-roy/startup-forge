@@ -1,23 +1,16 @@
 "use client";
-
 import { useState } from "react";
 import OpCard from "./OpCard";
 import ApplyModal from "./ApplyModal";
-import { authClient } from "@/lib/auth-client";
 import { toast, ToastContainer } from "react-toastify";
 
 export default function OpList({ opportunities }) {
-    const { data: session } = authClient.useSession();
     const [applyingFor, setApplyingFor] = useState(null);
 
     const handleApplySuccess = () => {
-        if (!session?.user?.role === 'collaborator') {
-            toast.error("You are not authorized to apply for opportunities.");
-        } else if (session?.user?.role === 'collaborator') {
-            toast.success("Applied for opportunity successfully!");
-            alert("Application submitted successfully! wait for approval");
-            setApplyingFor(null);
-        }
+        toast.success("Applied for opportunity successfully! Wait For Approval");
+        alert("Application submitted successfully! wait for approval");
+        setApplyingFor(null);
     };
 
     if (!opportunities || opportunities.length === 0) {

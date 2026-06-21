@@ -13,37 +13,48 @@ export default function ApplyModal({ opportunity, onClose, onSuccess }) {
         email: "",
         portfolioUrl: "",
         coverLetter: "",
-        userId: userId,
-        userName: userName,
-        opportunityId: opportunity._id,
-        opportunityName: opportunity.role_title,
+        userId: '',
+        userName: '',
+        opportunityId: "",
+        opportunityName: "",
+        founderId: "",
+        status: "pending",
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value, 'userId': userId, 'userName': userName });
+        setFormData({ ...formData, 
+            [e.target.name]: e.target.value, 
+            'userId': userId, 
+            'userName': userName, 
+            'opportunityId': opportunity._id, 
+            'opportunityName': opportunity.role_title, 
+            'founderId': opportunity.founder_id });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
 
-        onSuccess();
+        if (session?.user?.role !== "collaborator") {
+            return toast.error("You are not authorized to apply for this opportunity.");
+        };
+
         try {
-            if (session?.user?.role === 'collaborator') {
-                await createApplications(formData)
-                toast.success("Application submitted successfully!");
-            } else {
-                toast.error("Founder are not authorized to apply for opportunity.");
-                return;
-            };
-            await new Promise((resolve) => setTimeout(resolve, 1500));
+            await createApplications(formData);
+
+            toast.success("Application submitted successfully! Please wait for approval.");
+            setTimeout(() => {
+                onSuccess?.();
+            }, 4000);
+
         } catch (error) {
             console.error("Application failed:", error);
-            alert("Failed to submit application. Please try again.");
+            toast.error(error?.message || "Failed to submit application.");
+
         } finally {
             setIsSubmitting(false);
-        }
+        };
     };
 
     return (
