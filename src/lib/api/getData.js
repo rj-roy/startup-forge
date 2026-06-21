@@ -1,8 +1,8 @@
 import { serverFetch } from "../core/server";
 
-export const getStartups = async () => {
-  const startups = await serverFetch('/api/startups');
-  return startups;
+export const getDataByCollection = async (path) => {
+  const data = await serverFetch(`${path}`);
+  return data;
 };
 
 export const getStartupsByStatus = async (status) =>{
