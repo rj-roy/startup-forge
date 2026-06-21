@@ -1,5 +1,5 @@
 import ManageStartupC from "@/components/dashboard/founder/manageStartupAll/ManageStartUpC";
-import { getStartupByFounderId } from "@/lib/api/getData";
+import { getDataById,  } from "@/lib/api/getData";
 import { getUserSession } from "@/lib/core/session";
 import { redirect } from "next/navigation";
 
@@ -10,7 +10,9 @@ export const metadata = {
 const ManageStartup = async () => {
     const session = await getUserSession();
     const userId = session?.user?.id;
-    const startup = await getStartupByFounderId(userId || null);
+    
+    // getStartupByFounderId
+    const startup = await getDataById(userId || null, '/api/startups/founder');
 
     if (!session){
         redirect("/auth/signin");

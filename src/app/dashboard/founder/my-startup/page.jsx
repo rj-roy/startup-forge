@@ -1,5 +1,5 @@
 import StartupCard from '@/components/startups/StartUpCard';
-import { getStartupByFounderId } from '@/lib/api/getData';
+import { getDataById, } from '@/lib/api/getData';
 import { getUserSession } from '@/lib/core/session';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
@@ -8,8 +8,9 @@ import React from 'react';
 const MyStartUp = async () => {
     const session = await getUserSession();
     const userId = session?.user?.id;
-
-    const startup = await getStartupByFounderId(userId);
+    
+    // getStartupByFounderId
+    const startup = await getDataById(userId, '/api/startups/founder');
 
     if (!session) {
         redirect("/auth/signin");

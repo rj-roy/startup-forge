@@ -2,16 +2,17 @@
 import { revalidatePath } from "next/cache";
 import { serverMutation } from "../core/server";
 import { getUserSession } from "../core/session";
-import { getStartupByFounderId } from "../api/getData";
+import { getDataById, } from "../api/getData";
 
 export const createStartup = async (data) => {
-    
+
     const session = await getUserSession();
     if (!session?.user?.id || !session?.user?.role === 'founder') {
         throw new Error("Unauthorized");
     };
-
-    const isAlreadyCreated = await getStartupByFounderId(session?.user?.id);
+    
+    // getStartupByFounderId
+    const isAlreadyCreated = await getDataById(session?.user?.id, '/api/startups/founder');
     if (isAlreadyCreated) {
         revalidatePath('/forbidden');
         throw new Error("You have already created a startup");

@@ -1,5 +1,5 @@
 import StartupList from "@/components/startups/StartUpList";
-import { getStartups, getStartupsFiled } from "@/lib/api/getData";
+import { getStartupsByStatus } from "@/lib/api/getData";
 
 export const metadata = {
     description: "Browse Startups",
@@ -7,8 +7,7 @@ export const metadata = {
 };
 
 const BrowseStartups = async () => {
-    const startups = await getStartups();
-    const industries = await getStartupsFiled("industry");
+    const approvedStartups = await getStartupsByStatus("approved");
     return (
         <div className="min-h-screen bg-white-bg dark:bg-black-bg">
             <div className="bg-white-bg border-b border-gray-200 dark:bg-black-bg dark:border-gray-800 w-full max-w-5xl mx-auto">
@@ -22,7 +21,7 @@ const BrowseStartups = async () => {
                 </div>
             </div>
 
-            <StartupList startups={startups} />
+            <StartupList startups={approvedStartups} />
         </div>
     );
 };

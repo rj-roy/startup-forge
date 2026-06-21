@@ -1,5 +1,5 @@
 import CSComponent from "@/components/dashboard/founder/createStartupAll/CSComponent";
-import { getStartupByFounderId } from "@/lib/api/getData";
+import { getDataById, } from "@/lib/api/getData";
 import { getUserSession } from "@/lib/core/session";
 import { redirect } from "next/navigation";
 
@@ -11,8 +11,9 @@ export const metadata = {
 const CreateStartup = async () => {
     const session = await getUserSession();
     const founderId = session?.user?.id;
-
-    const isAlreadyCreated = await getStartupByFounderId(founderId);
+    
+    // getStartupByFounderId
+    const isAlreadyCreated = await getDataById(founderId, '/api/startups/founder');
 
     if (!session) {
         redirect("/auth/signin");
@@ -23,7 +24,7 @@ const CreateStartup = async () => {
 
     return (
         <div>
-            <CSComponent founderId={founderId}/>
+            <CSComponent founderId={founderId} />
         </div>
     );
 };

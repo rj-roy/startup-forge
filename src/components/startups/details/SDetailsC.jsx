@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from "react";
-import { getStartupById } from "@/lib/api/getData";
+import { getDataById } from "@/lib/api/getData";
 import StartupDetails from "./StartupDetails";
 import { toast, ToastContainer } from "react-toastify";
 
@@ -13,7 +13,8 @@ export default function SDetailsC({ id }) {
             const fetchStartup = async () => {
                 setLoading(true);
                 try {
-                    const foundStartup = await getStartupById(id);
+                    // startupbyid
+                    const foundStartup = await getDataById(id, '/api/startups');
                     await new Promise(resolve => setTimeout(resolve, 500));
                     setStartup(foundStartup || null);
 

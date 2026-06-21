@@ -13,7 +13,6 @@ const getTeamSizeText = (fundingStage) => {
 
 export default function StartupCard({ startup }) {
     const teamSize = getTeamSizeText(startup.funding_stage);
-
     return (
         <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow duration-200 dark:bg-gray-900 dark:border-gray-700 dark:hover:shadow-gray-800/50">
             <div className="flex items-start justify-between mb-4">
@@ -30,7 +29,7 @@ export default function StartupCard({ startup }) {
                             {startup.startup_name}
                         </h3>
                         <p className="text-sm text-gray-500 dark:text-gray-400">
-                            by {startup.founder_email.split('@')[0].replace('.', ' ')}
+                            by {startup.founder.name}
                         </p>
                     </div>
                 </div>

@@ -1,14 +1,15 @@
 import { headers } from "next/headers";
 import { auth } from "./lib/auth";
 import { NextResponse } from "next/server";
-import { getStartupByFounderId } from "./lib/api/getData";
+import { getDataById } from "./lib/api/getData";
 
 export async function proxy(request) {
     const session = await auth.api.getSession({
         headers: await headers(),
     });
 
-    const isAlreadyCreatedStartup = await getStartupByFounderId(session?.user?.id);
+    // getStartupByFounderId
+    const isAlreadyCreatedStartup = await getDataById(session?.user?.id, '/api/startups/founder');
 
     const pathname = request.nextUrl.pathname;
 

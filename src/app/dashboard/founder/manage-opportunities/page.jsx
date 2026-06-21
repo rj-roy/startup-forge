@@ -1,5 +1,5 @@
 import OpList from "@/components/dashboard/founder/manageOpportunities/OpList";
-import { getOpportunitesByFounderId } from "@/lib/api/getData";
+import { getDataById } from "@/lib/api/getData";
 import { getUserSession } from "@/lib/core/session";
 
 export const metadata = {
@@ -9,7 +9,9 @@ export const metadata = {
 
 const ManageOpportunities = async () => {
     const session = await getUserSession();
-    const allOpportunities = await getOpportunitesByFounderId(session?.user?.id);
+
+    // getOpportunitesByFounderId
+    const allOpportunitiesByFounder = await getDataById(session?.user?.id, '/api/opportunities/founder');
     return (
         <div className="min-h-screen bg-white-bg dark:bg-black-bg p-6">
             <div className="max-w-6xl mx-auto">
@@ -24,7 +26,7 @@ const ManageOpportunities = async () => {
                     </div>
                 </div>
 
-                <OpList opportunities={allOpportunities} />
+                <OpList opportunities={allOpportunitiesByFounder} />
             </div>
         </div>
     );

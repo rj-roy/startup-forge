@@ -5,21 +5,16 @@ export const getStartups = async () => {
   return startups;
 };
 
-export const getStartupById = async (id) => {
-  const startup = await serverFetch(`/api/startups/${id}`);
-  return startup;
-};
-
-export const getStartupByFounderId = async (id) => {
-  const startups = await serverFetch(`/api/startups/founder/${id}`);
+export const getStartupsByStatus = async (status) =>{
+  const startups = await serverFetch(`/api/startups/${status}`)
   return startups;
 };
 
+export const getDataById = async (id, path)=>{
+  const data = await serverFetch(`${path}/${id}`);
+  return data;
+}
+
 export const getStartupsFiled = async (field) => {
     return serverFetch(`/api/startups/field?field_name=${field}`);
-};
-
-export const getOpportunitesByFounderId = async (id) => {
-  const opportunities = await serverFetch(`/api/opportunities/founder/${id}`);
-  return opportunities;
 };

@@ -1,5 +1,5 @@
 import AOComponent from "@/components/dashboard/founder/addOpportunity/AOComponent";
-import { getStartupByFounderId } from "@/lib/api/getData";
+import { getDataById, } from "@/lib/api/getData";
 import { getUserSession } from "@/lib/core/session";
 import Link from "next/link";
 
@@ -9,7 +9,9 @@ export const metadata = {
 }
 const AddOpportunity = async () => {
     const session = await getUserSession();
-    const hasStartup = await getStartupByFounderId(session?.user?.id);
+    
+    // getStartupByFounderId
+    const hasStartup = await getDataById(session?.user?.id, '/api/startups/founder');
 
     if (!hasStartup) {
         return (
