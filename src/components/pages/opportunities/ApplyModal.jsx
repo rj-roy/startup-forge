@@ -1,34 +1,43 @@
 "use client";
-
+import { createApplications } from "@/lib/actions/createApplications";
+import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function ApplyModal({ opportunity, onClose, onSuccess }) {
+    const { data: session } = authClient.useSession();
+    const userId = session?.user?.id;
+    const userName = session?.user?.name;
     const [formData, setFormData] = useState({
         fullName: "",
         email: "",
         portfolioUrl: "",
         coverLetter: "",
+        userId: userId,
+        userName: userName,
+        opportunityId: opportunity._id,
+        opportunityName: opportunity.role_title,
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        setFormData({ ...formData, [e.target.name]: e.target.value, 'userId': userId, 'userName': userName });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
 
+        onSuccess();
         try {
-            // Replace with actual API call
-            // await fetch("/api/applications", {
-            //   method: "POST",
-            //   headers: { "Content-Type": "application/json" },
-            //   body: JSON.stringify({ ...formData, opportunity_id: opportunity._id }),
-            // });
-
+            if (session?.user?.role === 'collaborator') {
+                await createApplications(formData)
+                toast.success("Application submitted successfully!");
+            } else {
+                toast.error("Founder are not authorized to apply for opportunity.");
+                return;
+            };
             await new Promise((resolve) => setTimeout(resolve, 1500));
-            onSuccess();
         } catch (error) {
             console.error("Application failed:", error);
             alert("Failed to submit application. Please try again.");
@@ -39,6 +48,7 @@ export default function ApplyModal({ opportunity, onClose, onSuccess }) {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <ToastContainer />
             {/* Backdrop */}
             <div
                 className="absolute inset-0 bg-black/50 backdrop-blur-sm"
