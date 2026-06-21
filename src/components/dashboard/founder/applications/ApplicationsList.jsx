@@ -3,11 +3,19 @@
 import { useState } from "react";
 import ApplicationItem from "./ApplicationsItem";
 import ApplicationDeModal from "./ApplicationsDeModal";
+import StatusChangeModal from "./StatusChangeModal";
 
 export default function ApplicationsList({ applications }) {
     const [filter, setFilter] = useState("all");
     const [selectedApplication, setSelectedApplication] = useState(null);
     const [localApplications, setLocalApplications] = useState(applications);
+
+    // New state for status change modal
+    const [statusChangeModal, setStatusChangeModal] = useState({
+        isOpen: false,
+        application: null,
+        newStatus: null,
+    });
 
     const handleStatusChange = (id, newStatus) => {
         setLocalApplications((prev) =>
@@ -16,12 +24,22 @@ export default function ApplicationsList({ applications }) {
             )
         );
 
-        // TODO: Call your API to update status
-        // fetch(`/api/applications/${id}`, {
-        //   method: "PATCH",
-        //   headers: { "Content-Type": "application/json" },
-        //   body: JSON.stringify({ status: newStatus }),
-        // });
+        // Close the modal
+        setStatusChangeModal({ isOpen: false, application: null, newStatus: null });
+
+        // Also close details modal if open
+        if (selectedApplication?._id === id) {
+            setSelectedApplication((prev) => prev ? { ...prev, status: newStatus } : prev);
+        }
+    };
+
+    // Open the confirmation modal
+    const openStatusChangeModal = (application, newStatus) => {
+        setStatusChangeModal({
+            isOpen: true,
+            application,
+            newStatus,
+        });
     };
 
     const filteredApplications = localApplications.filter((app) => {
@@ -62,8 +80,8 @@ export default function ApplicationsList({ applications }) {
                             key={tab.key}
                             onClick={() => setFilter(tab.key)}
                             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${filter === tab.key
-                                    ? "bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300"
-                                    : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+                                ? "bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300"
+                                : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
                                 }`}
                         >
                             {tab.label}
@@ -82,7 +100,7 @@ export default function ApplicationsList({ applications }) {
                         <ApplicationItem
                             key={app._id}
                             application={app}
-                            onStatusChange={handleStatusChange}
+                            onStatusChange={openStatusChangeModal}
                             onViewDetails={() => setSelectedApplication(app)}
                         />
                     ))
@@ -98,7 +116,17 @@ export default function ApplicationsList({ applications }) {
                 <ApplicationDeModal
                     application={selectedApplication}
                     onClose={() => setSelectedApplication(null)}
-                    onStatusChange={handleStatusChange}
+                    onStatusChange={openStatusChangeModal}
+                />
+            )}
+
+            {/* Status Change Confirmation Modal */}
+            {statusChangeModal.isOpen && statusChangeModal.application && (
+                <StatusChangeModal
+                    application={statusChangeModal.application}
+                    newStatus={statusChangeModal.newStatus}
+                    onClose={() => setStatusChangeModal({ isOpen: false, application: null, newStatus: null })}
+                    onConfirm={(newStatus) => handleStatusChange(statusChangeModal.application._id, newStatus)}
                 />
             )}
         </>

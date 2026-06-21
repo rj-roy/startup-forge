@@ -39,7 +39,7 @@ export default function ApplicationItem({ application, onStatusChange, onViewDet
 
                 {/* Middle Row: Contact Info & Cover Letter Preview */}
                 <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-                    <div className="flex-1 min-w-0 space-y-1.5">
+                    <div className="flex items-center gap-3 min-w-0">
                         <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                             <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -62,13 +62,6 @@ export default function ApplicationItem({ application, onStatusChange, onViewDet
                             </div>
                         )}
                     </div>
-
-                    {/* Cover Letter Preview */}
-                    <div className="flex-1 min-w-0">
-                        <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 italic">
-                            {application.coverLetter}
-                        </p>
-                    </div>
                 </div>
 
                 {/* Bottom Row: Actions */}
@@ -83,7 +76,7 @@ export default function ApplicationItem({ application, onStatusChange, onViewDet
                     {application.status === "pending" && (
                         <div className="flex items-center gap-2">
                             <button
-                                onClick={() => onStatusChange(application._id, "rejected")}
+                                onClick={() => onStatusChange(application, "rejected")}
                                 className="px-4 py-2 text-sm font-medium text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/40 transition-colors flex items-center gap-1.5"
                             >
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -92,7 +85,7 @@ export default function ApplicationItem({ application, onStatusChange, onViewDet
                                 Reject
                             </button>
                             <button
-                                onClick={() => onStatusChange(application._id, "approved")}
+                                onClick={() => onStatusChange(application, "approved")}
                                 className="px-4 py-2 text-sm font-medium text-white bg-green-600 hover:bg-green-700 rounded-lg transition-colors flex items-center gap-1.5"
                             >
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
