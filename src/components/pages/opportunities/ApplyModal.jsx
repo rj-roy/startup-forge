@@ -19,6 +19,7 @@ export default function ApplyModal({ opportunity, onClose, onSuccess }) {
         opportunityName: "",
         founderId: "",
         status: "pending",
+        createdAt: new Date(),
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
 

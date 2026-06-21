@@ -13,7 +13,7 @@ export const getStartupsByStatus = async (status) =>{
 export const getDataById = async (id, path)=>{
   const data = await serverFetch(`${path}/${id}`);
   return data;
-}
+};
 
 export const getStartupsFiled = async (field) => {
     return serverFetch(`/api/startups/field?field_name=${field}`);
