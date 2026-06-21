@@ -42,5 +42,5 @@ export const handleStatusCode = async (res) => {
     } catch (error) {
         console.error('JSON parse error');
         throw new Error("Invalid response from server");
-    }
+    };
 };

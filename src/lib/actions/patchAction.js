@@ -5,7 +5,7 @@ import { getUserSession } from "../core/session";
 
 export const patchAction = async (id, data, path, revPath) => {
     const session = await getUserSession();
-    if (!session?.user?.id || !session?.user?.role === 'founder') {
+    if (!session?.user?.id || session?.user?.role !== 'founder') {
         throw new Error("Unauthorized");
     };
     

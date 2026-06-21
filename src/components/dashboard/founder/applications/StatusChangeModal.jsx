@@ -1,13 +1,12 @@
 "use client";
 
+import { patchAction } from "@/lib/actions/patchAction";
+import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 
-export default function StatusChangeModal({
-    application,
-    newStatus,
-    onClose,
-    onConfirm
-}) {
+export default function StatusChangeModal({ application, newStatus, onClose, onConfirm }) {
+    const {data: session} = authClient.useSession();
     const [isProcessing, setIsProcessing] = useState(false);
     const [error, setError] = useState(null);
 
@@ -38,19 +37,26 @@ export default function StatusChangeModal({
         setIsProcessing(true);
         setError(null);
 
+        if (session?.user?.role !== "founder" || session?.user?.id !== application?.founderId) {
+            return toast.error("You are not authorized to approve/reject applications.");
+        };
+
         try {
-            // Replace with actual API call
-            // const response = await fetch(`/api/applications/${application._id}`, {
-            //   method: "PATCH",
-            //   headers: { "Content-Type": "application/json" },
-            //   body: JSON.stringify({ status: newStatus }),
-            // });
-            // if (!response.ok) throw new Error("Failed to update status");
+            const result = await patchAction(application._id, { status: newStatus }, "/api/application/update/status", '/dashboard/founder/applications');
+            if (result?.success === true){
+                toast.success("Application status updated successfully!");
+                alert("Application status updated successfully!");
+            };
+
+            if (result?.success === false) {
+                alert("Failed to update status");
+                throw new Error("Failed to update status");
+            };
 
             await new Promise((resolve) => setTimeout(resolve, 1000));
             onConfirm(newStatus);
         } catch (err) {
-            setError(err.message || "Something went wrong. Please try again.");
+            setError("Something went wrong. Please try again.");
         } finally {
             setIsProcessing(false);
         }
@@ -58,6 +64,7 @@ export default function StatusChangeModal({
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <ToastContainer/>
             {/* Backdrop */}
             <div
                 className="absolute inset-0 bg-black/50 backdrop-blur-sm"
