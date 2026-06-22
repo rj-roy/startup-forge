@@ -35,8 +35,8 @@ const DashNav = () => {
     const adminNavLinks = [
         { icon: House, href: "/dashboard/admin", label: "Dashboard" },
         { icon: Users, href: "/dashboard/admin/users", label: "Users" },
-        { icon: Building, href: "/dashboard/admin/companies", label: "Companies" },
-        { icon: Briefcase, href: "/dashboard/admin/jobs", label: "Jobs" },
+        { icon: Building, href: "/dashboard/admin/startups", label: "Startups" },
+        { icon: Briefcase, href: "/dashboard/admin/total-opportunities", label: "Opportunities" },
         { icon: CreditCard, href: "/dashboard/admin/payments", label: "Payments" },
         { icon: Gear, href: "/dashboard/admin/profile", label: "Profile" },
     ];
