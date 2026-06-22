@@ -77,7 +77,7 @@ export default function ApplyModal({ opportunity, onClose, onSuccess }) {
                             Apply for {opportunity.role_title}
                         </h2>
                         <p className="text-sm text-gray-500 dark:text-gray-400">
-                            at {opportunity.industry_name}
+                            at {opportunity.startup_name}
                         </p>
                     </div>
                     <button

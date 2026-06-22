@@ -7,27 +7,34 @@ import { toast, ToastContainer } from "react-toastify";
 export default function SDetailsC({ id }) {
     const [startup, setStartup] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [opportunities, setOpportunities] = useState([]);
 
     useEffect(() => {
-        if (id) {
-            const fetchStartup = async () => {
-                setLoading(true);
+        if (!id) return;
+        const fetchStartup = async () => {
+            setLoading(true);
+
+            try {
+                const foundStartup = await getDataById(id, '/api/startups');
+                setStartup(foundStartup || null);
+
                 try {
-                    // startupbyid
-                    const foundStartup = await getDataById(id, '/api/startups');
-                    await new Promise(resolve => setTimeout(resolve, 500));
-                    setStartup(foundStartup || null);
-
+                    const opportunitiesByStartup = await getDataById(foundStartup._id, '/api/opportunities/startup');
+                    setOpportunities(opportunitiesByStartup || []);
                 } catch (error) {
-                    toast.error("Error fetching startup:", error);
-                    setStartup(null);
-                } finally {
-                    setLoading(false);
+                    console.error(error);
+                    setOpportunities([]);
+                    toast.error("Failed to load opportunities");
                 }
+            } catch (error) {
+                console.error(error);
+                setStartup(null);
+                toast.error("Failed to load startup");
+            } finally {
+                setLoading(false);
             };
-
-            fetchStartup();
-        }
+        };
+        fetchStartup();
     }, [id]);
 
     if (loading) {
@@ -51,5 +58,5 @@ export default function SDetailsC({ id }) {
         );
     }
 
-    return <StartupDetails startup={startup} />;
+    return <StartupDetails startup={startup} opportunities={opportunities} />;
 }

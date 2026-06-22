@@ -22,8 +22,8 @@ export default function AOForm({ data, onChange, errors = {}, startupName, start
         const newData = {
             ...data, [field]: value,
             'founder_id': session?.user?.id,
-            'industry_id': startupId,
-            'industry_name': startupName
+            'startup_id': startupId,
+            'startup_name': startupName
         };
         onChange(newData);
     };

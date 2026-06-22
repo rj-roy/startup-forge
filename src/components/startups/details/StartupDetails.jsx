@@ -1,10 +1,11 @@
 import CultureSection from "./CultureSections";
 import FounderCard from "./FounderCard";
 import MissionSection from "./MissionSection";
+import OpportunitiesShow from "./OpportunitiesShow";
 import StartupHeader from "./StartupHeader";
 import TechStack from "./TechStack";
 
-export default function StartupDetails({ startup }) {
+export default function StartupDetails({ startup, opportunities }) {
     if (!startup) {
         return (
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -30,6 +31,7 @@ export default function StartupDetails({ startup }) {
                     <MissionSection mission={startup.our_mission} />
                     <TechStack technologies={startup.tech_stack} />
                     <CultureSection culture={startup.culture} />
+                    <OpportunitiesShow opportunities={opportunities}  />
                 </div>
 
                 {/* Sidebar - Right Column */}

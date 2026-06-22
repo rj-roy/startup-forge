@@ -23,7 +23,7 @@ export default function OpCard({ opportunity, onApply }) {
                     <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1.5 flex-wrap">
                             <span className="text-sm font-semibold text-indigo-600 dark:text-indigo-400">
-                                {opportunity.industry_name}
+                                {opportunity.startup_name}
                             </span>
                             <span className="text-gray-300 dark:text-gray-600">•</span>
                             <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${daysRemaining < 7

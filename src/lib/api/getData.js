@@ -18,3 +18,5 @@ export const getDataById = async (id, path)=>{
 export const getStartupsFiled = async (field) => {
     return serverFetch(`/api/startups/field?field_name=${field}`);
 };
+
+// opportunities by startup_id
