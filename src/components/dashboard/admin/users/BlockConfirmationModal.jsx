@@ -1,5 +1,6 @@
 "use client";
 
+import { patchAction } from "@/lib/actions/patchAction";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -26,19 +27,23 @@ export default function BlockConfirmationModal({ user, action, onClose, onConfir
         setError(null);
 
         try {
-            // let result;
-            // if (isBlock) {
-            //     result = await blockUser(user._id);
-            // } else {
-            //     result = await unblockUser(user._id);
-            // }
-
-            // if (result?.success === false) {
-            //     throw new Error(result.message || "Failed to update user status");
-            // }
+            let result;
             
-            toast.success(`User ${isBlock ? "blocked" : "unblocked"} successfully`);
-            onConfirm(isBlock ? "blocked" : "active");
+            if (isBlock) {
+                result = await patchAction(user._id, { status: "blocked" }, '/api/users/update/status', '/dashboard/admin/users', 'admin');
+            } else {
+                result = await patchAction(user._id, { status: "active" }, '/api/users/update/status', '/dashboard/admin/users', 'admin');
+            };
+
+            if (result?.success === true) {
+                toast.success(`User ${isBlock ? "blocked" : "unblocked"} successfully`);
+                onConfirm(isBlock ? "blocked" : "active");
+                console.log(result);
+            } else {
+                toast.error(result.message);
+                throw new Error(result.message || "Failed to update user status");
+            };
+
         } catch (err) {
             setError(err.message || "Something went wrong. Please try again.");
         } finally {
