@@ -58,8 +58,8 @@ export default function ProfileForm({ initialData }) {
         setSaveStatus(null);
 
         try {
-            const updatedData = {name, email, profileImage};
-            await patchAction(initialData.id, updatedData, '/api/user/update', '/dashboard/founder/profile');
+            const updatedData = { name, email, profileImage };
+            await patchAction(initialData.id, updatedData, '/api/user/update', `/dashboard/${initialData.role}/profile`);
             alert('Profile updated successfully!');
             await new Promise((resolve) => setTimeout(resolve, 1000));
 

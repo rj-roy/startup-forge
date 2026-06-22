@@ -38,6 +38,7 @@ export default function ApplyModal({ opportunity, onClose, onSuccess }) {
         setIsSubmitting(true);
 
         if (session?.user?.role !== "collaborator") {
+            setIsSubmitting(false);
             return toast.error("You are not authorized to apply for this opportunity.");
         };
 

@@ -22,15 +22,14 @@ const DashNav = () => {
         { icon: ClipboardPen, href: "/dashboard/founder/my-startup", label: "My Startup" },
         { icon: Bolt, href: "/dashboard/founder/manage-startup", label: "Manage Startup" },
         { icon: Briefcase, href: "/dashboard/founder/add-opportunity", label: "Add Opportunity" },
-        { icon: ShoppingBasket, href: "/dashboard/founder/manage-opportunities", label: "Manage" },
-        { icon: Envelope, href: "/dashboard/founder/applications", label: "Applications" },
+        { icon: ShoppingBasket, href: "/dashboard/founder/manage-opportunities", label: "Added Opportunities" },
+        { icon: Envelope, href: "/dashboard/founder/applications", label: "Manage Applications" },
         { icon: Person, href: "/dashboard/founder/profile", label: "Profile" },
     ];
     const collaboratorNavLinks = [
         { icon: House, href: "/dashboard/collaborator", label: "Dashboard" },
         { icon: Magnifier, href: "/opportunities", label: "Browse Opportunities" },
-        { icon: Bookmark, href: "/dashboard/collaborator/my-applications", label: "My Applications" },
-        { icon: FileText, href: "/dashboard/collaborator/applications", label: "Applications" },
+        { icon: FileText, href: "/dashboard/collaborator/my-applications", label: "My Applications" },
         { icon: CreditCard, href: "/dashboard/collaborator/profile", label: "Profile" },
     ];
     const adminNavLinks = [
@@ -47,7 +46,7 @@ const DashNav = () => {
         collaborator: collaboratorNavLinks,
         admin: adminNavLinks
     };
-    const menuItems = navLinksMap[user?.role || 'founder'];
+    const menuItems = navLinksMap[user?.user?.role || 'founder'];
 
     return (
         <>
@@ -96,7 +95,7 @@ const DashNav = () => {
                             <Link href={href} key={href}>
                                 <button
                                     onClick={() => setActiveTab(href)}
-                                    className={`w-full flex items-center gap-3 rounded-lg px-4 py-3 transition-colors ${activeTab === href ? 'bg-gray-800 text-white' : 'dark:text-gray-400 hover:bg-gray-900 hover:text-gray-200'}`}>
+                                    className={`w-full text-nowrap flex items-center gap-3 rounded-lg px-4 py-3 transition-colors ${activeTab === href ? 'bg-gray-800 text-white' : 'dark:text-gray-400 hover:bg-gray-900 hover:text-gray-200'}`}>
                                     <Icon className="size-5" />
                                     <span className="font-medium">{label}</span>
                                 </button>
