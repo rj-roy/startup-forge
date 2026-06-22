@@ -38,7 +38,7 @@ const DashNav = () => {
         { icon: Building, href: "/dashboard/admin/companies", label: "Companies" },
         { icon: Briefcase, href: "/dashboard/admin/jobs", label: "Jobs" },
         { icon: CreditCard, href: "/dashboard/admin/payments", label: "Payments" },
-        { icon: Gear, href: "/dashboard/admin/settings", label: "Settings" },
+        { icon: Gear, href: "/dashboard/admin/profile", label: "Profile" },
     ];
 
     const navLinksMap = {

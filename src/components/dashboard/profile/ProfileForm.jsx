@@ -73,7 +73,7 @@ export default function ProfileForm({ initialData }) {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 md:p-8">
+        <form onSubmit={handleSubmit} className="min-w-0 bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 md:p-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
                 {/* Left Column: Profile Image */}
