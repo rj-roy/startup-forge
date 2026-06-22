@@ -56,7 +56,7 @@ export default function EditOpModal({ opportunity, onClose, onSave }) {
         setIsSaving(true);
 
         const { _id, ...updatedData } = formData;
-        await patchAction(_id, updatedData, '/api/opportunities/update', '/dashboard/founder/manage-opportunities')
+        await patchAction(_id, updatedData, '/api/opportunities/update', '/dashboard/founder/manage-opportunities', 'founder')
 
         alert("Opportunity updated successfully!");
         toast.success("Opportunity updated successfully!");

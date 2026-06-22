@@ -1,4 +1,5 @@
 "use client";
+import { patchAction } from "@/lib/actions/patchAction";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -30,14 +31,16 @@ export default function StChangeModal({ startup, newStatus, onClose, onConfirm }
         setError(null);
 
         try {
-            // const result = await patchStartupStatus(startup._id, newStatus);
+            const result = await patchAction(startup._id, {'status': newStatus}, '/api/startup/status/update', '/dashboard/admin/startups', 'admin');
 
-            // if (result?.success === false) {
-            //     throw new Error(result.message || "Failed to update status");
-            // }
-            toast.success("Updated successfully");
+            if(result?.success === true){
+                toast.success("Updated successfully");
+                onConfirm(newStatus);
+            };
+            if (result?.success === false) {
+                throw new Error(result.message || "Failed to update status");
+            };
 
-            onConfirm(newStatus);
         } catch (err) {
             setError(err.message || "Something went wrong. Please try again.");
         } finally {

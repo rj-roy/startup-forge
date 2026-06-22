@@ -22,7 +22,7 @@ export default function ManageStartupC({defStartup}) {
         setSaving(true);
         try {
             const { _id, ...updateData } = startup;
-            await patchAction(_id, updateData, '/api/startup', '/dashboard/founder/manage-startup');
+            await patchAction(_id, updateData, '/api/startup', '/dashboard/founder/manage-startup', 'founder');
 
             await new Promise(resolve => setTimeout(resolve, 1000));
 

@@ -42,7 +42,7 @@ export default function StatusChangeModal({ application, newStatus, onClose, onC
         };
 
         try {
-            const result = await patchAction(application._id, { status: newStatus }, "/api/application/update/status", '/dashboard/founder/applications');
+            const result = await patchAction(application._id, { status: newStatus }, "/api/application/update/status", '/dashboard/founder/applications', 'founder');
             if (result?.success === true){
                 toast.success("Application status updated successfully!");
                 alert("Application status updated successfully!");
