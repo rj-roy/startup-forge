@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Trash2 } from "lucide-react";
 import DeleteModal from "./DeleteModal";
 
-export default function DeleteComponent({ id, name, path, revPath }) {
+export default function DeleteComponent({ id, name, path, revPath, role }) {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -24,6 +24,7 @@ export default function DeleteComponent({ id, name, path, revPath }) {
                 name={name}
                 path={path}
                 revPath={revPath}
+                role={role}
             />
         </>
     );

@@ -3,7 +3,7 @@ import { deleteAction } from "@/lib/actions/deleteAction";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function DeleteModal({ isOpen, onClose, id, name, path, revpPath }) {
+export default function DeleteModal({ isOpen, onClose, id, name, path, revpPath, role }) {
     const router = useRouter();
     const [deleting, setDeleting] = useState(false);
     const [error, setError] = useState(null);
@@ -15,11 +15,13 @@ export default function DeleteModal({ isOpen, onClose, id, name, path, revpPath 
         setError(null);
 
         try {
-            await deleteAction(path, id, revpPath);
-            await new Promise((resolve) => setTimeout(resolve, 1500));
-            alert(`${name} has been deleted.`)
-            onClose();
-            router.refresh();
+            const result = await deleteAction(path, id, revpPath, role);
+            if (result?.success === true) {
+                alert(`${name} has been deleted.`)
+                onClose();
+                await new Promise((resolve) => setTimeout(resolve, 1500));
+                router.refresh();
+            };
         } catch (err) {
             setError(err.message || "Something went wrong. Please try again.");
         } finally {

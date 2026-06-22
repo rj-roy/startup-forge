@@ -1,7 +1,7 @@
 import DeleteComponent from "@/components/actions/deleteS/DeleteComponent";
 import Image from "next/image";
 
-export default function ManageStartupHeader({ startup }) {
+export default function ManageStartupHeader({ startup, role }) {
     return (
         <div className="bg-white-bg dark:bg-black-bg border-b border-gray-200 dark:border-gray-700">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center">
@@ -27,7 +27,7 @@ export default function ManageStartupHeader({ startup }) {
                         </p>
                     </div>
                 </div>
-                <DeleteComponent id={startup._id} name={startup.startup_name} path={'/api/startup/delete'} revPath={'/dashboard/founder/create-startup'} />
+                <DeleteComponent id={startup._id} name={startup.startup_name} path={'/api/startup/delete'} revPath={'/dashboard/founder/create-startup'} role={role} />
             </div>
         </div>
     );

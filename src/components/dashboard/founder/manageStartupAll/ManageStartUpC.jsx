@@ -5,12 +5,14 @@ import ManageStartupForm from "./ManageStartupForm";
 import ManageStartupActions from "./ManageStartupActions";
 import { toast, ToastContainer } from "react-toastify";
 import { patchAction } from "@/lib/actions/patchAction";
+import { authClient } from "@/lib/auth-client";
 
-export default function ManageStartupC({defStartup}) {
+export default function ManageStartupC({ defStartup }) {
     const [startup, setStartup] = useState(defStartup);
     const [originalStartup, setOriginalStartup] = useState(defStartup);
     const [saving, setSaving] = useState(false);
     const [hasChanges, setHasChanges] = useState(false);
+    const { data: session } = authClient.useSession();
 
     useEffect(() => {
         const changed = JSON.stringify(startup) !== JSON.stringify(originalStartup);
@@ -43,8 +45,11 @@ export default function ManageStartupC({defStartup}) {
 
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-black-bg">
-            <ToastContainer/>
-            <ManageStartupHeader startup={startup} />
+            <ToastContainer />
+            <ManageStartupHeader
+                startup={startup}
+                role = {session?.user?.role}
+            />
 
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <ManageStartupForm

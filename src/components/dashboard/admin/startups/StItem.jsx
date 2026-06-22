@@ -1,6 +1,8 @@
+import DeleteComponent from "@/components/actions/deleteS/DeleteComponent";
 import Image from "next/image";
 
-export default function StItem({ startup, onStatusChange, onViewDetails }) {
+export default function StItem({ startup, onStatusChange, onViewDetails, role }) {
+    console.log(startup);
     const getStatusBadge = (status) => {
         const styles = {
             pending: "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300",
@@ -43,6 +45,13 @@ export default function StItem({ startup, onStatusChange, onViewDetails }) {
                             </p>
                         </div>
                     </div>
+                    <DeleteComponent
+                        id={startup._id}
+                        name={startup.startup_name}
+                        path={'/api/startup/delete'}
+                        revPath={'/dashboard/admin/startups'}
+                        role={role}
+                    />
                 </div>
 
                 {/* Middle Row: Founder & Tech Stack */}

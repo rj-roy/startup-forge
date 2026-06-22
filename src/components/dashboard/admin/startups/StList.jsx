@@ -4,11 +4,13 @@ import { useState } from "react";
 import StChangeModal from "./StChangModal";
 import StDetailsModal from "./StDetailsModal";
 import StItem from "./StItem";
+import { authClient } from "@/lib/auth-client";
 
 export default function StList({ startups }) {
     const [filter, setFilter] = useState("all");
     const [selectedStartup, setSelectedStartup] = useState(null);
     const [localStartups, setLocalStartups] = useState(startups);
+    const {data:session} = authClient.useSession();
 
     const [statusChangeModal, setStatusChangeModal] = useState({
         isOpen: false,
@@ -97,6 +99,7 @@ export default function StList({ startups }) {
                             startup={startup}
                             onStatusChange={openStatusChangeModal}
                             onViewDetails={() => setSelectedStartup(startup)}
+                            role={session?.user?.role}
                         />
                     ))
                 ) : (

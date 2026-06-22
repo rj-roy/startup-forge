@@ -26,7 +26,7 @@ const ManageOpportunities = async () => {
                     </div>
                 </div>
 
-                <OpList opportunities={allOpportunitiesByFounder} />
+                <OpList opportunities={allOpportunitiesByFounder} role={session?.user?.role} />
             </div>
         </div>
     );

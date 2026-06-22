@@ -3,7 +3,7 @@ import { useState } from "react";
 import EditOpModal from "./EditOpModal";
 import OpListItem from "@/components/ui/OpListItem";
 
-export default function OpList({ opportunities }) {
+export default function OpList({ opportunities, role }) {
     const [editingOpportunity, setEditingOpportunity] = useState(null);
 
     const handleSave = (updatedOpportunity) => {
@@ -26,6 +26,7 @@ export default function OpList({ opportunities }) {
                         key={opp._id}
                         opportunity={opp}
                         onEdit={setEditingOpportunity}
+                        role={role}
                     />
                 ))}
             </div>
