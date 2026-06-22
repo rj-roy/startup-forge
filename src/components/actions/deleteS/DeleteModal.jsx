@@ -2,6 +2,7 @@
 import { deleteAction } from "@/lib/actions/deleteAction";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function DeleteModal({ isOpen, onClose, id, name, path, revpPath, role }) {
     const router = useRouter();
@@ -18,6 +19,7 @@ export default function DeleteModal({ isOpen, onClose, id, name, path, revpPath,
             const result = await deleteAction(path, id, revpPath, role);
             if (result?.success === true) {
                 alert(`${name} has been deleted.`)
+                toast.success(`${name} has been deleted.`);
                 onClose();
                 await new Promise((resolve) => setTimeout(resolve, 1500));
                 router.refresh();
