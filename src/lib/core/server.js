@@ -5,7 +5,7 @@ export const serverFetch = async (path) => {
     // return res.json();
 };
 
-export const serverMutation = async (path, data, method ) => {
+export const serverMutation = async (path, data, method) => {
     const res = await fetch(`${baseUrl}${path}`, {
         method: method,
         headers: {
@@ -24,19 +24,15 @@ export const serverDelete = async (path) => {
 };
 
 export const handleStatusCode = async (res) => {
-    if (res.status === 401) {
-        redirect('/unauthorized');
-    } else if (res.status === 403) {
-        redirect('/unauthorized');
-    } else if (!res.ok) {
+    if (!res.ok) {
         throw new Error("Something went wrong! Please try again later.");
     };
-    
+
     const text = await res.text();
     if (!text) {
-        return null; 
-    }
-    
+        return null;
+    };
+
     try {
         return JSON.parse(text);
     } catch (error) {

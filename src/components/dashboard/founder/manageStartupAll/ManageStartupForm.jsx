@@ -117,6 +117,7 @@ export default function ManageStartupForm({ startup, onChange }) {
                                 height={200}
                                 src={data.logo}
                                 alt="Logo"
+                                loading="eager"
                                 className={`w-24 h-24 rounded-xl object-cover border-2 border-gray-200 dark:border-gray-700 ${uploading ? "opacity-50" : ""
                                     }`}
                             />

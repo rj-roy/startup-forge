@@ -1,4 +1,5 @@
 "use client";
+import { patchAction } from "@/lib/actions/patchAction";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -11,12 +12,15 @@ export default function CancelConfirmationModal({ application, onClose, onConfir
         setError(null);
 
         try {
-            // const result = await cancelApplication(application._id);
-            
-            // if (result?.success === false) {
-            //     throw new Error(result.message || "Failed to cancel application");
-            // }
-            toast.success("Application cancelled successfully.");
+            const result = await patchAction(application._id, { status: 'cancelled' }, "/api/application/update/status", '/dashboard/collaborator/my-applications', 'collaborator');
+            if (result?.success === true) {
+                toast.success("Application cancelled successfully.");
+            };
+            if (result?.success === false) {
+                alert("Failed to Cancel");
+                throw new Error("Failed to Cancel");
+            };
+
             onConfirm(application._id);
         } catch (err) {
             setError(err.message || "Something went wrong. Please try again.");
@@ -27,11 +31,11 @@ export default function CancelConfirmationModal({ application, onClose, onConfir
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <div 
-                className="absolute inset-0 bg-black/50 backdrop-blur-sm" 
+            <div
+                className="absolute inset-0 bg-black/50 backdrop-blur-sm"
                 onClick={!isProcessing ? onClose : undefined}
             />
-            
+
             <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-md w-full p-6 border border-gray-200 dark:border-gray-700">
                 <div className="flex items-start gap-4">
                     <div className="shrink-0 p-3 bg-red-100 dark:bg-red-900/30 rounded-full">
@@ -39,7 +43,7 @@ export default function CancelConfirmationModal({ application, onClose, onConfir
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                         </svg>
                     </div>
-                    
+
                     <div className="flex-1">
                         <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">
                             Cancel Application?

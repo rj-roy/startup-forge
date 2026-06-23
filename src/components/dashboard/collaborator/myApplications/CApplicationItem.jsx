@@ -4,7 +4,7 @@ export default function CApplicationItem({ application, onCancel }) {
             pending: "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300",
             approved: "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300",
             rejected: "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300",
-            cancelled: "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300",
+            cancelled: "bg-red-500 text-gray-300",
         };
         return styles[status] || styles.pending;
     };
@@ -16,7 +16,7 @@ export default function CApplicationItem({ application, onCancel }) {
                 {/* Top Row: Opportunity & Status */}
                 <div className="flex items-start justify-between gap-3">
                     <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1 flex-wrap">
+                        <div className="flex items-center justify-between gap-2 mb-1 flex-wrap">
                             <h3 className="text-base font-bold text-gray-900 dark:text-gray-100 truncate">
                                 {application.opportunityName}
                             </h3>

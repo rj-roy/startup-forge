@@ -11,6 +11,7 @@ export const metadata = {
 const AddOpportunity = async () => {
     const session = await getUserSession();
 
+    // getStartupByFounderId
     const hasStartup = await getDataById(session?.user?.id, '/api/startups/founder');
     const isPending = hasStartup?.status !== "approved";
 
@@ -26,7 +27,9 @@ const AddOpportunity = async () => {
                 </div>
             </div>
         );
-    } else if (hasStartup && hasStartup?.status !== "approved") {
+    };
+
+    if (hasStartup?.status !== "approved") {
         return (
             <div className="min-h-screen bg-gray-50 dark:bg-black-bg">
                 {hasStartup && (
@@ -38,14 +41,12 @@ const AddOpportunity = async () => {
                 )}
             </div>
         );
-    } else if (hasStartup && hasStartup?.status === 'Approved') {
-        return (
-            <div>
-                <AOComponent startupName={hasStartup?.startup_name} startupId={hasStartup?._id} />
-            </div>
-        );
     };
-
+    return (
+        <div>
+            <AOComponent startupName={hasStartup?.startup_name} startupId={hasStartup?._id} />
+        </div>
+    );
 };
 
 export default AddOpportunity;

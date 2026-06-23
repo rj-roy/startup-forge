@@ -1,16 +1,16 @@
 'use client'
 import { authClient } from "@/lib/auth-client";
 import { Envelope, Gear, Magnifier, Person } from "@gravity-ui/icons";
-import { Bell, Bolt, Bookmark, Briefcase, Building, ClipboardPen, CreditCard, FileText, House, LayoutDashboard, LogOut, SettingsIcon, ShoppingBasket, User, Users, } from "lucide-react";
+import { Bolt, Briefcase, Building, ClipboardPen, CreditCard, FileText, House, LogOut, ShoppingBasket, User, Users, } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { FaAngleLeft, FaAngleRight, } from "react-icons/fa";
 
 const DashNav = () => {
-    const [activeTab, setActiveTab] = useState('');
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const { data: user } = authClient.useSession();
-
+    const pathName = usePathname();
     const handleLogout = async () => {
         await authClient.signOut();
         setIsMobileMenuOpen(false);
@@ -47,6 +47,13 @@ const DashNav = () => {
         admin: adminNavLinks
     };
     const menuItems = navLinksMap[user?.user?.role || 'founder'];
+
+    const isActive = (href) => {
+        if (href === menuItems[0]?.href) {
+            return pathName === href;
+        }
+        return pathName === href || pathName.startsWith(href + '/');
+    };
 
     return (
         <>
@@ -91,16 +98,18 @@ const DashNav = () => {
 
                     {/* Navigation */}
                     <nav className="flex-1 px-4 space-y-1">
-                        {menuItems.map(({ href, label, icon: Icon, }) => (
-                            <Link href={href} key={href}>
-                                <button
-                                    onClick={() => setActiveTab(href)}
-                                    className={`w-full text-nowrap flex items-center gap-3 rounded-lg px-4 py-3 transition-colors ${activeTab === href ? 'bg-gray-800 text-white' : 'dark:text-gray-400 hover:bg-gray-900 hover:text-gray-200'}`}>
-                                    <Icon className="size-5" />
-                                    <span className="font-medium">{label}</span>
-                                </button>
-                            </Link>
-                        ))}
+                        {menuItems.map(({ href, label, icon: Icon, }) => {
+                            const active = isActive(href);
+                            return (
+                                <Link href={href} key={href}>
+                                    <button
+                                        className={`w-full text-nowrap flex items-center gap-3 rounded-lg px-4 py-3 transition-colors ${active ? 'bg-gray-800 text-white' : 'dark:text-gray-400 hover:bg-gray-900 hover:text-gray-200'}`}>
+                                        <Icon className="size-5" />
+                                        <span className="font-medium">{label}</span>
+                                    </button>
+                                </Link>
+                            )
+                        })}
                     </nav>
 
                     {/* Footer Actions */}
