@@ -8,9 +8,9 @@ import ActiveOpportunities from "@/components/dashboard/founder/home/ActiveOppor
 export default async function FounderDashboardPage() {
     const session = await getUserSession();
     const opportunities = await getDataById(session?.user?.id, '/api/opportunities/founder');
-    const applications = await getDataById(session?.user?.id, '/api/application/founder')
+    const getApplications = await getDataById(session?.user?.id, '/api/application/founder')
+    const applications = getApplications?.data || [];
 
-    // Calculate stats
     const stats = {
         totalOpportunities: opportunities.length,
         activeOpportunities: opportunities.filter(

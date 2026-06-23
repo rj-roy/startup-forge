@@ -5,6 +5,7 @@ import { getUserSession } from "@/lib/core/session";
 const ApplicationsPage = async () => {
     const session = await getUserSession();
     const applicationsByFounder = await getDataById(session?.user?.id, '/api/application/founder');
+    const applications = applicationsByFounder.data;
 
     return (
         <div className="min-h-screen px-4 sm:px-6 lg:px-8">
@@ -18,7 +19,7 @@ const ApplicationsPage = async () => {
                     </p>
                 </div>
 
-                <ApplicationsList applications={applicationsByFounder} />
+                <ApplicationsList applications={applications} />
             </div>
         </div>
     );
