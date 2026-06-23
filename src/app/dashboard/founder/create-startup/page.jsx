@@ -11,8 +11,6 @@ export const metadata = {
 const CreateStartup = async () => {
     const session = await getUserSession();
     const founderId = session?.user?.id;
-    
-    // getStartupByFounderId
     const isAlreadyCreated = await getDataById(founderId, '/api/startups/founder');
 
     if (!session) {

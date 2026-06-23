@@ -43,7 +43,7 @@ export default function ManageStartupC({ defStartup }) {
     const handleDiscard = () => {
         if (hasChanges && confirm("Discard all unsaved changes?")) {
             setStartup(originalStartup);
-        }
+        };
     };
 
     if (isPending) {
@@ -58,29 +58,29 @@ export default function ManageStartupC({ defStartup }) {
                 )}
             </div>
         );
-    };
-
-    return (
-        <div className="min-h-screen bg-gray-50 dark:bg-black-bg">
-            <ToastContainer />
-            <ManageStartupHeader
-                startup={startup}
-                role={session?.user?.role}
-            />
-
-            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                <ManageStartupForm
+    } else if (!isPending) {
+        return (
+            <div className="min-h-screen bg-gray-50 dark:bg-black-bg">
+                <ToastContainer />
+                <ManageStartupHeader
                     startup={startup}
-                    onChange={setStartup}
+                    role={session?.user?.role}
+                />
+
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                    <ManageStartupForm
+                        startup={startup}
+                        onChange={setStartup}
+                    />
+                </div>
+
+                <ManageStartupActions
+                    onSave={handleSave}
+                    onDiscard={handleDiscard}
+                    saving={saving}
+                    hasChanges={hasChanges}
                 />
             </div>
-
-            <ManageStartupActions
-                onSave={handleSave}
-                onDiscard={handleDiscard}
-                saving={saving}
-                hasChanges={hasChanges}
-            />
-        </div>
-    );
-}
+        );
+    };
+};

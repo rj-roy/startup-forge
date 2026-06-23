@@ -2,7 +2,7 @@
 import { redirect } from "next/navigation";
 import {  useState } from "react";
 
-export default function StartupPendingModal({ isOpen, onClose, startupName, startupId }) {
+export default function StartupPendingModal({ isOpen,  startupName, }) {
     const [isDismissed, setIsDismissed] = useState(false);
     const handleClose = () => {
         setIsDismissed(true);
