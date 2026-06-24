@@ -49,7 +49,7 @@ export default function Testimonials() {
                                 &quot;{t.quote}&quot;
                             </p>
                             <div className="flex items-center gap-3">
-                                <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${t.color} flex items-center justify-center text-white font-bold text-sm`}>
+                                <div className={`w-10 h-10 rounded-full bg-linear-to-br ${t.color} flex items-center justify-center text-white font-bold text-sm`}>
                                     {t.avatar}
                                 </div>
                                 <div>

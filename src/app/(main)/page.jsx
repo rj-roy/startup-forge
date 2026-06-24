@@ -6,7 +6,7 @@ import Hero from "@/components/pages/home/Hero";
 import Testimonials from "@/components/pages/home/TestiMonials";
 import TrustBar from "@/components/pages/home/TrustBar";
 
-export default function HomePage() {
+export default async function HomePage() {
     return (
         <div className="min-h-screen w-full bg-gray-50 dark:bg-sec-black-bg overflow-hidden">
             <Hero />

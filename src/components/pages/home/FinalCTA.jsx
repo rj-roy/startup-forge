@@ -4,7 +4,7 @@ export default function FinalCTA() {
     return (
         <div className="px-4 sm:px-6 lg:px-8 pb-20">
             <div className="max-w-7xl mx-auto">
-                <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 p-12 sm:p-20 text-center">
+                <div className="relative overflow-hidden rounded-[2.5rem] bg-linear-to-br from-indigo-600 via-purple-600 to-pink-600 p-12 sm:p-20 text-center">
                     {/* Decorative */}
                     <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
                     <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />

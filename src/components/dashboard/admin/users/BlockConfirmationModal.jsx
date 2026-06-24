@@ -38,7 +38,6 @@ export default function BlockConfirmationModal({ user, action, onClose, onConfir
             if (result?.success === true) {
                 toast.success(`User ${isBlock ? "blocked" : "unblocked"} successfully`);
                 onConfirm(isBlock ? "blocked" : "active");
-                console.log(result);
             } else {
                 toast.error(result.message);
                 throw new Error(result.message || "Failed to update user status");

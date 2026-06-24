@@ -2,10 +2,10 @@ import AdminHomeHeader from "@/components/dashboard/admin/home/AdminHomeHeader";
 import AdminQuickLinks from "@/components/dashboard/admin/home/AdminQuickLinks";
 import AdminRecentPending from "@/components/dashboard/admin/home/AdminRecentPending";
 import AdminStatsGrid from "@/components/dashboard/admin/home/AdminStatsGrid";
-import { getDataByCollection } from "@/lib/api/getData";
+import { getDataByCollection, getPrDataByCollection } from "@/lib/api/getData";
 
 export default async function AdminHomePage() {
-    const allUsers = await getDataByCollection('/api/users');
+    const allUsers = await getPrDataByCollection('/api/users');
     const allStartups = await getDataByCollection('/api/startups');
     const allOpportunities = await getDataByCollection('/api/opportunities');
 

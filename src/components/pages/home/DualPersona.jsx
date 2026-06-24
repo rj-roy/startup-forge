@@ -15,7 +15,7 @@ export default function DualPersona() {
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {/* For Founders */}
-                    <div className="relative group overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-600 to-purple-700 p-8 sm:p-12 text-white">
+                    <div className="relative group overflow-hidden rounded-3xl bg-linear-to-br from-indigo-600 to-purple-700 p-8 sm:p-12 text-white">
                         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
                         <div className="relative">
                             <div className="w-14 h-14 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center mb-6">
@@ -30,7 +30,7 @@ export default function DualPersona() {
                             <ul className="space-y-3 mb-8">
                                 {["Create unlimited startup profiles", "Post & manage opportunities", "Review applications in one place", "Direct messaging with talent"].map((item, idx) => (
                                     <li key={idx} className="flex items-center gap-3">
-                                        <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                         </svg>
                                         <span>{item}</span>
@@ -50,7 +50,7 @@ export default function DualPersona() {
                     </div>
 
                     {/* For Collaborators */}
-                    <div className="relative group overflow-hidden rounded-3xl bg-gradient-to-br from-pink-600 to-rose-700 p-8 sm:p-12 text-white">
+                    <div className="relative group overflow-hidden rounded-3xl bg-linear-to-br from-pink-600 to-rose-700 p-8 sm:p-12 text-white">
                         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
                         <div className="relative">
                             <div className="w-14 h-14 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center mb-6">
@@ -65,7 +65,7 @@ export default function DualPersona() {
                             <ul className="space-y-3 mb-8">
                                 {["Browse curated opportunities", "Apply with one click", "Track application status", "Build your professional profile"].map((item, idx) => (
                                     <li key={idx} className="flex items-center gap-3">
-                                        <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                         </svg>
                                         <span>{item}</span>

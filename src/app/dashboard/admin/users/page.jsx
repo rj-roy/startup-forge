@@ -1,10 +1,10 @@
-import { getDataByCollection } from "@/lib/api/getData";
+import { getPrDataByCollection } from "@/lib/api/getData";
 import AdminUsersHeader from "@/components/dashboard/admin/users/AdminUsersHeader";
 import AdminUsersStats from "@/components/dashboard/admin/users/AdminUsersStats";
 import AdminUsersList from "@/components/dashboard/admin/users/AdminUsersList";
 
 export default async function AdminDashUsersPage() {
-    const usersData = await getDataByCollection('/api/users');
+    const usersData = await getPrDataByCollection('/api/users');
     const allUsers = usersData?.data;
 
     const stats = {

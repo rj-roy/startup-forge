@@ -5,8 +5,8 @@ export default function Hero() {
         <div className="relative pt-28 pb-20 sm:pt-36 sm:pb-28 px-4 sm:px-6 lg:px-8">
             {/* Background Effects */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-indigo-500/20 dark:bg-indigo-500/10 blur-[120px] rounded-full" />
-                <div className="absolute top-20 right-1/4 w-[500px] h-[500px] bg-purple-500/20 dark:bg-purple-500/10 blur-[120px] rounded-full" />
+                <div className="absolute top-0 left-1/4 w-150 h-150 bg-indigo-500/20 dark:bg-indigo-500/10 blur-[120px] rounded-full" />
+                <div className="absolute top-20 right-1/4 w-125 h-125 bg-purple-500/20 dark:bg-purple-500/10 blur-[120px] rounded-full" />
             </div>
 
             <div className="relative max-w-7xl mx-auto">
@@ -23,7 +23,7 @@ export default function Hero() {
                     <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-gray-900 dark:text-white tracking-tight leading-[1.1] mb-6">
                         Where Founders Meet{" "}
                         <span className="relative inline-block">
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-400 dark:via-purple-400 dark:to-pink-400">
+                            <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-400 dark:via-purple-400 dark:to-pink-400">
                                 Talent
                             </span>
                             <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 300 12" fill="none">
@@ -67,7 +67,7 @@ export default function Hero() {
                         <div className="flex items-center gap-2">
                             <div className="flex -space-x-2">
                                 {[1, 2, 3, 4].map((i) => (
-                                    <div key={i} className="w-8 h-8 rounded-full border-2 border-white dark:border-gray-900 bg-gradient-to-br from-indigo-400 to-purple-500" />
+                                    <div key={i} className="w-8 h-8 rounded-full border-2 border-white dark:border-gray-900 bg-linear-to-br from-indigo-400 to-purple-500" />
                                 ))}
                             </div>
                             <span>Join 5,000+ members</span>
@@ -86,7 +86,7 @@ export default function Hero() {
 
                 {/* Hero Visual */}
                 <div className="mt-20 relative max-w-5xl mx-auto">
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-50 dark:from-[#0a0a0f] via-transparent to-transparent z-10 pointer-events-none" />
+                    <div className="absolute inset-0 bg-linear-to-t from-gray-50 dark:from-sec-black-bg via-transparent to-transparent z-10 pointer-events-none" />
                     <div className="relative bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-2xl overflow-hidden">
                         <div className="flex items-center gap-2 px-4 py-3 border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
                             <div className="flex gap-1.5">
