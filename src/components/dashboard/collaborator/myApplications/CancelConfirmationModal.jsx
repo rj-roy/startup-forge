@@ -12,7 +12,7 @@ export default function CancelConfirmationModal({ application, onClose, onConfir
         setError(null);
 
         try {
-            const result = await patchAction(application._id, { status: 'cancelled' }, "/api/application/update/status", '/dashboard/collaborator/my-applications', 'collaborator');
+            const result = await patchAction(application._id, { status: 'cancelled' }, "/api/application/update/status/cancelled", '/dashboard/collaborator/my-applications', 'collaborator');
             if (result?.success === true) {
                 toast.success("Application cancelled successfully.");
             };

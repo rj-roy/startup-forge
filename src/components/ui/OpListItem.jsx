@@ -1,4 +1,3 @@
-import { Trash2 } from "lucide-react";
 import DeleteComponent from "../actions/deleteS/DeleteComponent";
 
 export default function OpListItem({ opportunity, onEdit, role }) {
