@@ -1,4 +1,5 @@
 "use client";
+import SignInComponent from "@/components/auth/SignInComponent";
 import { createApplications } from "@/lib/actions/createApplications";
 import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
@@ -24,13 +25,15 @@ export default function ApplyModal({ opportunity, onClose, onSuccess }) {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleChange = (e) => {
-        setFormData({ ...formData, 
-            [e.target.name]: e.target.value, 
-            'userId': userId, 
-            'userName': userName, 
-            'opportunityId': opportunity._id, 
-            'opportunityName': opportunity.role_title, 
-            'founderId': opportunity.founder_id });
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+            'userId': userId,
+            'userName': userName,
+            'opportunityId': opportunity._id,
+            'opportunityName': opportunity.role_title,
+            'founderId': opportunity.founder_id
+        });
     };
 
     const handleSubmit = async (e) => {
@@ -58,6 +61,20 @@ export default function ApplyModal({ opportunity, onClose, onSuccess }) {
             setIsSubmitting(false);
         };
     };
+
+    if (!session) {
+        return (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                <div
+                    className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+                    onClick={!isSubmitting ? onClose : undefined}
+                />
+                <div className="relative rounded-2xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto border border-gray-200 dark:border-gray-700">
+                    <SignInComponent />
+                </div>
+            </div>
+        )
+    }
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
