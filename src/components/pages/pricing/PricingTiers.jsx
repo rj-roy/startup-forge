@@ -10,59 +10,64 @@ export default function PricingTiers({ userType }) {
                 description: "Perfect for validating your idea.",
                 features: ["1 Startup Profile", "Post 3 Opportunities", "Basic Analytics", "Community Support"],
                 cta: "Get Started",
-                href: "/auth/signup?plan=free",
+                action: "/auth/signup?plan=free",
                 popular: false
             },
             {
-                name: "Growth",
+                name: "Founder Pro",
+                id: "founder_pro",
                 price: 29,
                 period: "month",
                 description: "For startups ready to scale hiring.",
                 features: ["3 Startup Profiles", "Unlimited Opportunities", "Advanced Analytics", "Priority Support", "Custom Branding"],
-                cta: "Start Free Trial",
-                href: "/auth/signup?plan=growth",
+                cta: "Start with Pro",
+                action: "/api/checkout_session",
                 popular: true
             },
             {
                 name: "Scale",
+                id: "scale",
                 price: 79,
                 period: "month",
                 description: "For established companies.",
                 features: ["Unlimited Profiles", "Unlimited Opportunities", "Dedicated Account Manager", "API Access", "SSO & Advanced Security", "Team Collaboration"],
                 cta: "Contact Sales",
-                href: "/contact",
+                action: "/contact",
                 popular: false
             }
         ]
         : [
             {
                 name: "Explorer",
+                id: "explorer",
                 price: 0,
                 period: "forever",
                 description: "Start your journey with us.",
                 features: ["Create Profile", "Apply to 5 Jobs/Month", "Basic Profile Visibility", "Email Alerts"],
                 cta: "Get Started",
-                href: "/auth/signup?plan=free",
+                action: "/auth/signup?plan=free",
                 popular: false
             },
             {
                 name: "Pro",
+                id: "pro",
                 price: 9,
                 period: "month",
                 description: "Get noticed by top founders.",
                 features: ["Unlimited Applications", "Featured Profile Badge", "Direct Messaging", "Advanced Analytics", "Priority Support"],
                 cta: "Go Pro",
-                href: "/auth/signup?plan=pro",
+                action: "/auth/signup?plan=pro",
                 popular: true
             },
             {
                 name: "Elite",
+                id: "elite",
                 price: 19,
                 period: "month",
                 description: "Maximum visibility and perks.",
                 features: ["Everything in Pro", "Top of Search Results", "Verified Skill Badges", "1-on-1 Career Coaching", "Exclusive Job Board Access"],
                 cta: "Go Elite",
-                href: "/auth/signup?plan=elite",
+                action: "/auth/signup?plan=elite",
                 popular: false
             }
         ];
@@ -116,15 +121,17 @@ export default function PricingTiers({ userType }) {
                         ))}
                     </ul>
 
-                    <Link
-                        href={plan.href}
-                        className={`w-full py-3.5 px-4 rounded-xl text-center font-semibold transition-all duration-200 ${plan.popular
-                            ? "bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50"
-                            : "bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-white"
-                            }`}
-                    >
-                        {plan.cta}
-                    </Link>
+                    <form action={plan.action} method="POST">
+                        <input type="hidden" name="plan_id" value={plan.id} />
+                        <button
+                            className={`cursor-pointer w-full py-3.5 px-4 rounded-xl text-center font-semibold transition-all duration-200 ${plan.popular
+                                ? "bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50"
+                                : "bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-white"
+                                }`}
+                        >
+                            {plan.cta}
+                        </button>
+                    </form>
                 </div>
             ))}
         </div>

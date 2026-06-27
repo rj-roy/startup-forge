@@ -22,7 +22,7 @@ export default function Footer() {
                                 alt="StartupForge Logo"
                                 width={40}
                                 height={40}
-                                className="rounded-xl"
+                                className="rounded-xl w-auto h-auto"
                             />
                             <span className="text-xl font-bold text-gray-900 dark:text-white">
                                 StartupForge
