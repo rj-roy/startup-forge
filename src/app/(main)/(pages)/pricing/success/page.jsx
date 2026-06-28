@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { CircleCheckFill, Envelope, ArrowLeft } from '@gravity-ui/icons';
 import { getUserSession } from '@/lib/core/session';
 import { createSubscription } from '@/lib/actions/createSubscription';
+import { patchAction } from '@/lib/actions/patchAction';
 
 export default async function Success({ searchParams }) {
     const { session_id } = await searchParams;
@@ -28,9 +29,11 @@ export default async function Success({ searchParams }) {
         const subsInfo = {
             billingEmail: customerEmail,
             planId: metadata.planId,
-            userId: userId
+            userId: userId,
+            sessionId: session_id,
         };
         const subscription = await createSubscription('/api/subscription/create', subsInfo, 'POST');
+        const updateUserPlan = await patchAction(userId, {plan: metadata.planId}, '/api/user/plan/update', `/dashboard`, userRole);
 
         return (
             <div className="w-full min-h-screen bg-zinc-950 text-zinc-50 flex flex-col justify-center items-center p-6 select-none">

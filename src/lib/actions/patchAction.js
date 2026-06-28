@@ -10,6 +10,10 @@ export const patchAction = async (id, data, path, revPath, role) => {
     };
     
     const res = await serverMutation(`${path}/${id}`, data, 'PATCH');
+    if(path === '/api/user/plan/update'){
+        return res;
+    };
+    
     revalidatePath(`${revPath}` || '/dashboard');
     return res;
 };
