@@ -5,6 +5,7 @@ import { CircleCheckFill, Envelope, ArrowLeft } from '@gravity-ui/icons';
 import { getUserSession } from '@/lib/core/session';
 import { createSubscription } from '@/lib/actions/createSubscription';
 import { patchAction } from '@/lib/actions/patchAction';
+import { getPrDataByCollection } from '@/lib/api/getData';
 
 export default async function Success({ searchParams }) {
     const { session_id } = await searchParams;
@@ -14,6 +15,21 @@ export default async function Success({ searchParams }) {
 
     if (!session_id) {
         throw new Error('Please provide a valid session_id (`cs_test_...`)');
+    };
+
+    const isSubsCriptionExist = await getPrDataByCollection(`/api/subscription/exist?sessionId=${session_id}`);
+
+    if (isSubsCriptionExist.isExist === true) {
+        return (
+            <div className='min-h-[95dvh] grid place-content-center text-center'>
+
+                <h2 className='font-bold text-xl'>{isSubsCriptionExist?.data.heading}</h2>
+                <p>{isSubsCriptionExist?.data.paragraph}</p>
+                <Link className='font-bold text-blue-500 underline mt-2' href={'/dashboard'}>
+                    Go to Dashboard
+                </Link>
+            </div>
+        );
     };
 
     const {
@@ -33,7 +49,7 @@ export default async function Success({ searchParams }) {
             sessionId: session_id,
         };
         const subscription = await createSubscription('/api/subscription/create', subsInfo, 'POST');
-        const updateUserPlan = await patchAction(userId, {plan: metadata.planId}, '/api/user/plan/update', `/dashboard`, userRole);
+        const updateUserPlan = await patchAction(userId, { plan: metadata.planId }, '/api/user/plan/update', `/dashboard`, userRole);
 
         return (
             <div className="w-full min-h-screen bg-zinc-950 text-zinc-50 flex flex-col justify-center items-center p-6 select-none">
