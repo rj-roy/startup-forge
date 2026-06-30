@@ -1,195 +1,227 @@
 # Startup Forge
 
-## Project Summary
+A modern full-stack platform for connecting founders, collaborators, and admins in a startup ecosystem.
 
-`startup-forge` is a Next.js client-side application for a startup collaboration marketplace. It delivers a public marketing site and authenticated dashboards for three user roles:
+## Overview
 
-- `founder` — create startups, publish opportunities, manage applications.
-- `collaborator` — browse startup opportunities, apply, and track application status.
-- `admin` — manage users, startups, and opportunities with approval workflows.
+Startup Forge is a multi-role marketplace built to simplify how early-stage startups discover talent and how collaborators discover meaningful opportunities. The experience spans a polished public website, secure authentication, role-based dashboards, and a REST API that powers startup, opportunity, application, and subscription workflows.
 
-The project focuses on user flow, UI components, authentication, access control, and integration with a backend API.
+This repository contains both the client application and the backend API:
 
-## What This Project Contains
-
-This repository contains the complete client application only. It includes:
-
-- Public pages: home, about, pricing, opportunities, startup details.
-- Authentication pages: sign in, sign up.
-- Role-based dashboard routes using Next.js App Router.
-- API integration wrappers for REST requests to a backend service.
-- Cloudinary image upload support for startup/logo assets.
-- Theme provider and dark mode support.
+- Frontend: a Next.js application with a modern, responsive UI and role-aware dashboards.
+- Backend: an Express API backed by MongoDB for startups, opportunities, applications, subscriptions, and user management.
 
 ## Technology Stack
 
-- Next.js `16.2.9`
-- React `19.2.4`
-- Tailwind CSS `4`
-- Better Auth (`better-auth`, `@better-auth/mongo-adapter`)
-- Cloudinary `2.10.0`
-- MongoDB driver `7.3.0`
-- React Toastify `11.1.0`
-- React Hook Form
-- ESLint
+### Frontend
 
-## Key User Flows
+- Next.js 16 with the App Router
+- React 19 for component-driven UI development
+- Tailwind CSS 4 for rapid, modern styling
+- Better Auth for authentication, sessions, and role-aware access
+- Cloudinary integration for startup logo and asset uploads
+- Stripe-based checkout flows for subscription and plan upgrades
+- React Hook Form, React Toastify, Lucide icons, and React Icons for polished UX
 
-### Public Discovery
+### Backend
 
-- Landing page with hero, trust metrics, feature highlights, and testimonials.
-- `/about` page describing the platform mission.
-- `/pricing` page for product plans.
-- `/opportunities` page showing all available roles.
-- `/startups` listing plus `/startups/[id]` for startup details.
+- Node.js with Express 5
+- MongoDB via the native MongoDB driver
+- REST-style route structure with controllers and middleware
+- Centralized error handling and request validation helpers
+- CORS enabled for secure API communication with the client
 
-### Authentication
+## What the Platform Does
 
-- `Sign In` page with email/password and Google social login support.
-- `Sign Up` page with role selection (`founder` or `collaborator`).
-- Role and session creation created through Better Auth client.
+### For Founders
 
-### Founder Dashboard
+- Create and manage startup profiles
+- Publish opportunities for collaborators
+- Review incoming applications
+- Approve or update startup and opportunity states
 
-- Create a startup profile once per founder.
-- Add and manage startup opportunities.
-- Review applications sent by collaborators.
-- View dashboard metrics for active opportunities, pending/approved applications, and startup health.
+### For Collaborators
 
-### Collaborator Dashboard
+- Browse startups and available opportunities
+- Apply to roles or projects
+- Track application status over time
 
-- Track personal applications.
-- Cancel applications when needed.
-- View application status summary: pending, approved, rejected.
+### For Admins
 
-### Admin Dashboard
+- Manage users and their status
+- Review pending startups and opportunities
+- Moderate platform content and approvals
 
-- View all users and manage their status.
-- Review all startups and approve/reject pending startups.
-- Inspect all opportunities and startup activity.
+## Architecture at a Glance
 
-## Core Architecture
+The app is structured as a full-stack product with clear separation between presentation, logic, and data layers:
 
-### Routing and Layout
+1. The frontend renders pages, dashboards, auth screens, and marketing content.
+2. Client-side actions and API helpers communicate with the backend.
+3. The Express server handles business logic and persistence in MongoDB.
+4. Authentication, role restrictions, and protected routes ensure the correct experience for each user type.
 
-- `src/app/layout.jsx` — root layout, global styling, theme provider, navigation, and footer.
-- `src/app/(main)/page.jsx` — main landing page built from modular homepage blocks.
-- `src/app/auth/signin/page.jsx` — sign-in page.
-- `src/app/auth/signup/page.jsx` — sign-up page.
-- `src/app/(main)/(pages)/opportunities/page.jsx` — public opportunity browse page.
-- `src/app/(main)/(pages)/startups/[id]/page.jsx` — startup details page.
+## Project Structure
 
-### Middleware & Access Control
+```text
+startup-forge/        # Next.js frontend
+  src/app/             # Pages, layouts, auth routes, dashboards
+  src/components/      # Reusable UI + page sections
+  src/lib/            # Auth, API helpers, server actions, Stripe setup
+  src/proxy.js        # Route protection and redirect logic
 
-- `src/proxy.js` — middleware that:
-  - redirects authenticated users away from sign-in / sign-up pages,
-  - prevents unauthenticated access to `/dashboard`,
-  - enforces role-specific access on `/dashboard/admin`, `/dashboard/founder`, and `/dashboard/collaborator`,
-  - prevents founders from creating more than one startup.
+sf-server/            # Express + MongoDB backend
+  controllers/        # Startup, opportunity, user, application, subscription logic
+  routes/             # REST endpoints grouped by domain
+  middlewares/        # Auth, error handling, 404 handling
+  config/             # MongoDB connection and environment config
+```
 
-### Authentication & Session
+## Key Features
 
-- `src/lib/auth.js` — Better Auth server configuration with MongoDB adapter and user fields:
-  - `role`, `plan`, and `profileImage`.
-- `src/lib/auth-client.js` — Better Auth client wrapper for sign in, sign up, sign out, and session hooks.
-- `src/lib/core/session.js` — server utilities to read session and bearer token from request headers.
+- Role-based user flows for founders, collaborators, and admins
+- Secure authentication with Better Auth and session handling
+- Protected dashboards and route-based access control
+- Startup and opportunity discovery pages
+- Application submission and tracking
+- Subscription and plan management flows
+- Cloudinary image upload support
+- Modern theme support with light/dark switching
 
-### API Client & Data Fetching
+## Frontend Highlights
 
-- `src/lib/core/server.js` — request helpers used throughout the app:
-  - `serverFetch()` for public API requests,
-  - `protectedFetch()` for authenticated API requests,
-  - `serverMutation()` for POST/PATCH operations,
-  - `serverDelete()` for DELETE operations.
-- `src/lib/api/getData.js` — shared front-end API wrappers for fetching collections and individual records.
+The frontend is built around Next.js App Router and a modular component structure. Core UI areas include:
 
-### Client-side Actions
+- Public marketing pages such as home, about, pricing, opportunities, and startups
+- Authentication pages for sign in and sign up
+- Dashboard experiences tailored to each role
+- Reusable UI components for cards, actions, navigation, and badges
+- API wrappers and server actions for create, update, and delete flows
 
-- `src/lib/actions/createStartup.js` — create a founder startup after session validation.
-- `src/lib/actions/createOpportunities.js` — create founder opportunities.
-- `src/lib/actions/createApplications.js` — submit collaborator applications.
-- `src/lib/actions/patchAction.js` — update records and revalidate dashboard paths.
-- `src/lib/actions/deleteAction.js` — delete startup/opportunity records.
+## Backend Highlights
 
-### Image Upload
+The backend is a lightweight, API-first service designed for flexibility and easy extension. It currently supports:
 
-- `src/app/api/upload-logo/route.js` — Next.js API route that uploads a logo file to Cloudinary and returns the secure URL.
+- User retrieval and status updates
+- Startup creation, approval, and lookup
+- Opportunity creation, update, and deletion
+- Application management
+- Subscription/session persistence
+- Plan-related operations
 
-### Better Auth Endpoints
+## API Surface
 
-- `src/app/api/auth/[...all]/route.js` — Better Auth next-js handler for auth operations.
+The backend exposes REST endpoints under the following domains:
 
-## Folder Structure
+- `/api/user` and `/api/users`
+- `/api/startup` and `/api/startups`
+- `/api/opportunity` and `/api/opportunities`
+- `/api/application` and `/api/applications`
+- `/api/subscription`
+- `/api/plan`
 
-- `src/app/` — App Router pages, layouts, and route-specific logic.
-- `src/components/` — reusable UI components, page sections, and dashboard widgets.
-- `src/lib/` — auth, API utilities, session helpers, and action handlers.
-- `src/proxy.js` — route protection middleware.
-
-## Important Files and Their Purpose
-
-- `src/app/layout.jsx` — root layout, global theme wrapping, and metadata.
-- `src/proxy.js` — essential access control for all protected routes.
-- `src/lib/auth.js` — authentication provider and database adapter.
-- `src/lib/auth-client.js` — auth client for user login/signup.
-- `src/lib/core/server.js` — centralized backend request handling.
-- `src/lib/core/session.js` — session retrieval and role enforcement.
-- `src/lib/api/getData.js` — reusable API fetch helpers.
-- `src/lib/actions/` — business logic wrappers for create/update/delete operations.
-- `src/app/api/upload-logo/route.js` — Cloudinary upload route.
-- `src/app/api/auth/[...all]/route.js` — auth routing endpoint.
-- `src/components/prividers/TProvider.jsx` — theme provider for dark/light mode.
-- `src/components/shared/NavBar.jsx` — site header and navigation.
-- `src/components/shared/Footer.jsx` — footer used across all pages.
+These routes are used by the frontend to power dashboards, discovery pages, and moderation tools.
 
 ## Environment Variables
 
-The client requires these env variables to function correctly:
+### Frontend
 
-- `NEXT_PUBLIC_API_URL` — backend API base URL.
-- `BETTER_AUTH_BASE` — Better Auth service base URL.
-- `BETTER_AUTH_SECRET` — Better Auth secret key.
-- `MONGODB_URI` — MongoDB connection string for auth.
-- `MONGODB_DB` — MongoDB database name for auth.
-- `GOOGLE_CLIENT_ID` — Google OAuth client ID.
-- `GOOGLE_CLIENT_SECRET` — Google OAuth client secret.
-- `CLOUDINARY_CLOUD_NAME` — Cloudinary account name.
-- `CLOUDINARY_API_KEY` — Cloudinary API key.
-- `CLOUDINARY_API_SECRET` — Cloudinary API secret.
+Create environment variables in the frontend app for auth, API access, and upload support:
 
-## Running the Project
+- `NEXT_PUBLIC_API_URL`
+- `BETTER_AUTH_BASE`
+- `BETTER_AUTH_SECRET`
+- `MONGODB_URI`
+- `MONGODB_DB`
+- `GOOGLE_CLIENT_ID`
+- `GOOGLE_CLIENT_SECRET`
+- `CLOUDINARY_CLOUD_NAME`
+- `CLOUDINARY_API_KEY`
+- `CLOUDINARY_API_SECRET`
 
-Install dependencies and start the client:
+### Backend
+
+Create environment variables in the backend app for database and server configuration:
+
+- `PORT`
+- `DB_URI`
+- `DB_NAME`
+- `USERS_COLLECTION`
+- `STARTUPS_COLLECTION`
+- `OPPORTUNITIES_COLLECTION`
+- `APPLICATIONS_COLLECTION`
+- `SESSION_COLLECTION`
+- `SUBSCRIPTION_COLLECTION`
+- `PLAN_COLLECTION`
+- `CLIENT_ORIGINS`
+- `ADMIN_EMAIL`
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 20+
+- npm
+- A running MongoDB instance
+- Cloudinary credentials (for image uploads)
+- Google OAuth credentials (optional but recommended for social sign-in)
+
+### 1. Install dependencies
 
 ```bash
 cd startup-forge
 npm install
+
+cd ../sf-server
+npm install
+```
+
+### 2. Start the backend
+
+```bash
+cd sf-server
 npm run dev
 ```
 
-Available scripts:
+The backend will start on the port defined by `PORT` (default: 5000).
 
-- `npm run dev` — start the Next.js development server.
-- `npm run build` — build the production app.
-- `npm run start` — start the built app.
-- `npm run lint` — lint the project with ESLint.
+### 3. Start the frontend
 
-## Notes
+```bash
+cd ../startup-forge
+npm run dev
+```
 
-- This README describes the client project only; backend API implementation is not included here.
-- The app is designed to work with a backend API served at `NEXT_PUBLIC_API_URL` plus Better Auth authentication services.
-- `src/lib/mongodb.js` currently contains commented example code and is not actively used.
-- User roles are enforced both client-side and server-side through middleware and session inspection.
+Open the client at `http://localhost:3000`.
 
-## What Makes This Project Unique
+## Available Scripts
 
-Startup Forge is built to be a full-featured client application with:
+### Frontend
 
-- multi-role access control,
-- founder startup publishing workflows,
-- collaborator application tracking,
-- admin approval dashboards,
-- Cloudinary asset uploads,
-- theme switching and modern UI patterns.
+- `npm run dev` — start the Next.js development server
+- `npm run build` — build the production app
+- `npm run start` — start the production build
+- `npm run lint` — run ESLint
 
-The app is structured so that anyone reading the project can understand the route flows, role functionality, and where to modify authentication, API calls, or UI components.
+### Backend
+
+- `npm run dev` — start the server in watch mode
+- `npm run start` — start the server normally
+
+## Development Notes
+
+- The frontend uses route protection and server-side session logic to ensure the correct experience for each role.
+- The backend uses a simple controller-based structure that is easy to extend as the platform grows.
+- The project is designed to be both a showcase application and a solid foundation for a real startup collaboration product.
+
+## Why This Project Matters
+
+Startup Forge demonstrates how a modern SaaS-style product can combine:
+
+- clean user experience,
+- secure role-based auth,
+- content moderation workflows,
+- startup discovery features,
+- and a scalable API foundation.
+
+It is a strong example of a multi-role full-stack application with modern tooling and architecture.
